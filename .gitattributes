@@ -1,2 +1,2 @@
-/home/rui/.profile filter=profile-filter
+.profile filter=profile-filter
 .config/newsboat/config filter=newsboat-filter
