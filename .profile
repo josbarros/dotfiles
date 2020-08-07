@@ -15,6 +15,8 @@ export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
 eval "$(dircolors $XDG_CONFIG_HOME/dir_colors)"
 export LESSKEY="$XDG_CONFIG_HOME"/less/lesskey
 export LESSHISTFILE="$XDG_CACHE_HOME"/less/history
+export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
+export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
 
 
 # Swap esc/caps at boot
