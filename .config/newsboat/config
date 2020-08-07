@@ -5,6 +5,9 @@ inoreader-login
 inoreader-password 
 inoreader-show-special-feeds "no"
 inoreader-min-items 40
+inoreader-flag-star "b"
+
+auto-reload yes
 
 # browser "$BROWSER %u"
 
