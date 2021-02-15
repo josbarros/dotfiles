@@ -1,0 +1,16 @@
+[alias]
+	amend = commit --amend
+	back = checkout -
+	br = rev-parse --abbrev-ref HEAD
+	co = checkout
+	new = checkout -b
+	mc = "!git merge --no-commit --no-ff $1 && git merge --abort ; "
+	pu = pull
+	recent = for-each-ref --sort=-committerdate --count=10 --format='%(refname:short)' refs/heads/
+	sq = "!git reset --soft HEAD~$1 ; git commit ;"
+	st = status
+	fix = rebase -i HEAD~2
+[pull]
+	rebase = true
+[include]
+	path = local
