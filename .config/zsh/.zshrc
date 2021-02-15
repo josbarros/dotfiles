@@ -39,11 +39,12 @@ zle -N zle-keymap-select
 # Alias 
 alias cp='cp -iv'
 alias mv='mv -iv'
-alias rm='rm -v'
 alias mkd='mkdir -pv'
 alias df='df -h'
-alias ls='ls -hG' # color
 alias grep='grep --color=auto'
+if [ -f aliasrc ]; then
+    source aliasrc
+fi    
 
 # Histfile
 HISTFILE="$XDG_DATA_HOME"/zsh/.zhistory

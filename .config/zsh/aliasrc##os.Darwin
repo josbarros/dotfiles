@@ -1,0 +1,2 @@
+alias rm='rm -v'
+alias ls='ls -hG' # color
