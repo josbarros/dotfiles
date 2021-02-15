@@ -33,7 +33,9 @@ export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
 export GNUPGHOME="$XDG_DATA_HOME"/gnupg
 export ZPLUG_HOME="$XDG_DATA_HOME"/zsh/zplug
 export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
-eval "$(dircolors $XDG_CONFIG_HOME/dir_colors)"
+if [ -x "$(command -v dircolors)" ]; then
+    eval "$(dircolors $XDG_CONFIG_HOME/dir_colors)"
+fi
 
 # Secret
 if [ -e "$XDG_CONFIG_HOME"/secret ]; then
