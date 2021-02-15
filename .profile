@@ -7,6 +7,9 @@ export PATH="$HOME/.config/yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:
 # Use vim as default
 export EDITOR=vim
 
+# BSD ls colors
+export LSCOLORS=GxFxCxDxBxegedabagaced
+
 # git config
 export GIT_COMPLETION_CHECKOUT_NO_GUESS=1
 
@@ -16,8 +19,6 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
 export LESSHISTFILE="$XDG_CACHE_HOME"/less/history
 export ZDOTDIR="$XDG_CONFIG_HOME"/zsh
-export AWS_SHARED_CREDENTIALS_FILE="$XDG_CONFIG_HOME"/aws/credentials
-export AWS_CONFIG_FILE="$XDG_CONFIG_HOME"/aws/config 
 export GRADLE_USER_HOME="$XDG_DATA_HOME"/gradle
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME"/npm/npmrc
 export GNUPGHOME="$XDG_DATA_HOME"/gnupg
@@ -30,13 +31,14 @@ export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
 export GNUPGHOME="$XDG_DATA_HOME"/gnupg
 export ZPLUG_HOME="$XDG_DATA_HOME"/zsh/zplug
 export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
-if [ "$(uname -s)" = "Darwin" ]; then
-    eval "$(gdircolors $XDG_CONFIG_HOME/dir_colors)"
-else
+ if [ -x "$(command -v dircolors)" ]; then
     eval "$(dircolors $XDG_CONFIG_HOME/dir_colors)"
 fi
 
 # Secret
-if [ -e "$XDG_CONFIG_HOME"/secret ]; then
-    source "$XDG_CONFIG_HOME"/secret
+if [ -e "$XDG_CONFIG_HOME"/secret/secret1 ]; then
+    source "$XDG_CONFIG_HOME"/secret1
+fi
+if [ -e "$XDG_CONFIG_HOME"/secret/secret2 ]; then
+    source "$XDG_CONFIG_HOME"/secret2
 fi
