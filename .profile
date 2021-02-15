@@ -37,8 +37,8 @@ fi
 
 # Secret
 if [ -e "$XDG_CONFIG_HOME"/secret/secret1 ]; then
-    source "$XDG_CONFIG_HOME"/secret1
+    source "$XDG_CONFIG_HOME"/secret/secret1
 fi
 if [ -e "$XDG_CONFIG_HOME"/secret/secret2 ]; then
-    source "$XDG_CONFIG_HOME"/secret2
+    source "$XDG_CONFIG_HOME"/secret/secret2
 fi
