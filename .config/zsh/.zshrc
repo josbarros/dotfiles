@@ -42,8 +42,8 @@ alias mv='mv -iv'
 alias mkd='mkdir -pv'
 alias df='df -h'
 alias grep='grep --color=auto'
-if [ -f aliasrc ]; then
-    source aliasrc
+if [ -f "$ZDOTDIR/aliasrc" ]; then
+    source "$ZDOTDIR/aliasrc"
 fi    
 
 # Histfile
