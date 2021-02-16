@@ -1,3 +1,0 @@
-alias rm='rm -vI'
-alias ls='ls -hN --color=auto --group-directories-first'
-alias diff='diff --color=auto'

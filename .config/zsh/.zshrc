@@ -42,8 +42,13 @@ alias mv='mv -iv'
 alias mkd='mkdir -pv'
 alias df='df -h'
 alias grep='grep --color=auto'
-if [ -f "$ZDOTDIR/aliasrc" ]; then
-    source "$ZDOTDIR/aliasrc"
+if [ $(uname -s) = "Darwin" ]; then
+    alias rm='rm -v'
+    alias ls='ls -hG' # color
+else
+    alias rm='rm -vI'
+    alias ls='ls -hN --color=auto --group-directories-first'
+    alias diff='diff --color=auto'
 fi    
 
 # Histfile
