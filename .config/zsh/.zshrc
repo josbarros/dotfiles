@@ -47,7 +47,7 @@ if [ $(uname -s) = "Darwin" ]; then
     alias ls='ls -hG' # color
 else
     alias rm='rm -vI'
-    alias ls='ls -hN --color=auto --group-directories-first'
+    alias ls='ls -hNv --color=auto --group-directories-first'
     alias diff='diff --color=auto'
 fi    
 
