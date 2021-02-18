@@ -36,6 +36,6 @@ if [ -x "$(command -v dircolors)" ]; then
 fi
 
 # Secret
-if [ -e "$XDG_CONFIG_HOME"/secret ]; then
+if [ -f "$XDG_CONFIG_HOME"/secret ]; then
     source "$XDG_CONFIG_HOME"/secret
 fi
