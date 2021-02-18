@@ -10,6 +10,9 @@ export EDITOR=vim
 # BSD ls colors
 export LSCOLORS=GxFxCxDxBxegedabagaced
 
+# GNU ls colos	
+export LS_COLORS='di=1;36:ln=1;35:so=1;32:pi=1;33:ex=1;31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=34;43'
+
 # git config
 export GIT_COMPLETION_CHECKOUT_NO_GUESS=1
 
@@ -31,9 +34,6 @@ export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
 export GNUPGHOME="$XDG_DATA_HOME"/gnupg
 export ZPLUG_HOME="$XDG_DATA_HOME"/zsh/zplug
 export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
-if [ -x "$(command -v dircolors)" ]; then
-    eval "$(dircolors $XDG_CONFIG_HOME/dir_colors)"
-fi
 
 # Secret
 if [ -f "$XDG_CONFIG_HOME"/secret ]; then
