@@ -42,6 +42,7 @@ alias mv='mv -iv'
 alias mkd='mkdir -pv'
 alias df='df -h'
 alias grep='grep --color=auto'
+alias ccat='highlight'
 if [ $(uname -s) = "Darwin" ]; then
     alias rm='rm -v'
     alias ls='ls -hG' # color

@@ -7,7 +7,7 @@ let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
 
 " Colors e tal
 syntax on
-colorscheme desert
+colorscheme ron
 
 " Set numbers
 set nu
