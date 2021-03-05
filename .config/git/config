@@ -9,7 +9,9 @@
 	recent = for-each-ref --sort=-committerdate --count=10 --format='%(refname:short)' refs/heads/
 	sq = "!git reset --soft HEAD~$1 ; git commit ;"
 	st = status
-	fix = rebase -i HEAD~2
+	fi = rebase -i HEAD~2
+	fe = fetch
+	ma = checkout master
 [pull]
 	rebase = true
 [credential]
