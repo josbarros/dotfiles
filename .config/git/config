@@ -12,6 +12,7 @@
 	fi = "!git commit -a -m 'dummy commit'; git rebase -i HEAD~2"
 	fe = fetch
 	ma = checkout master
+	cp = "!git commit; git push"
 [pull]
 	rebase = true
 [credential]
