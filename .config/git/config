@@ -13,6 +13,8 @@
 	fe = fetch
 	ma = checkout master
 	cp = "!git commit; git push"
+	cap = "!git commit -a; git push"
+	re = restore .
 [pull]
 	rebase = true
 [credential]
