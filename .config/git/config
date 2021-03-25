@@ -9,12 +9,15 @@
 	recent = for-each-ref --sort=-committerdate --count=10 --format='%(refname:short)' refs/heads/
 	sq = "!git reset --soft HEAD~$1 ; git commit ;"
 	st = status
-	fi = "!git commit -a -m 'dummy commit'; git rebase -i HEAD~2"
+	fi = "!git commit -a -m 'dummy commit'; git rebase -i HEAD~2; git push -f"
 	fe = fetch
 	ma = checkout master
 	cp = "!git commit; git push"
 	cap = "!git commit -a; git push"
 	re = restore .
+	puf = push -f
+	stl = stash list
+	stp = stash pop
 [pull]
 	rebase = true
 [credential]
