@@ -39,6 +39,6 @@ export ZPLUG_HOME="$XDG_DATA_HOME"/zsh/zplug
 export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
 
 # Secret
-if [ -f "$XDG_CONFIG_HOME"/secret ]; then
+if [ -r "$XDG_CONFIG_HOME"/secret ]; then
     source "$XDG_CONFIG_HOME"/secret
 fi
