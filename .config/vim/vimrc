@@ -10,7 +10,7 @@ syntax on
 colorscheme ron
 
 " Set numbers
-set nu
+set relativenumber
 
 " Set ruler
 set ruler
