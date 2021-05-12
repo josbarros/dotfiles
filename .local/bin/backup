@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Basic snapshot-style rsync backup script 
+
+# Config
+OPT="-aPh"
+SNAP="/run/media/rui/8b9842f5-de26-4e41-90a5-8759a5cf1f3f/backintime/backintime/ruiManjaroPC/rui/1"
+LINK="--link-dest=$SNAP/last_snapshot/"
+SRC="$HOME/Backups $HOME/media-pessoal $HOME/PautasTabs $HOME/SoftwareProjects $HOME/Documents $HOME/livros-artigos $HOME/Music $HOME/Pictures $HOME/Videos"
+LAST="$SNAP/last_snapshot"
+date=`date "+%Y-%b-%d:_%T"`
+
+# Run rsync to create snapshot
+rsync $OPT $LINK $SRC "${SNAP}/$date"
+
+# Remove symlink to previous snapshot
+rm -f $LAST
+
+# Create new symlink to latest snapshot for the next backup to hardlink
+ln -s "${SNAP}/$date" $LAST
+
