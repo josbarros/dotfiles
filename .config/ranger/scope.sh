@@ -340,7 +340,7 @@ handle_fallback() {
 
 
 MIMETYPE="$( file --dereference --brief --mime-type -- "${FILE_PATH}" )"
-if [[ "${PV_IMAGE_ENABLED}" == 'True' ]]; then
+if [[ "${PV_IMAGE_ENABLED}" == 'True' ]] && [ $(uname -s) = 'Linux' ]; then
     handle_image "${MIMETYPE}"
 fi
 handle_extension
