@@ -59,7 +59,7 @@ HISTFILE="$XDG_DATA_HOME"/zsh/.zhistory
 setopt globdots
 
 # Hotfix alias, symlinks do not work for this
-alias hotfix="sh ~/Projects/uberall/src/main/scripts/hotfix.sh"
+alias hotfix="~/Projects/uberall/src/main/scripts/hotfix.sh"
 
 # Yarn is a mess
 alias yarn="yarn --use-yarnrc $XDG_CONFIG_HOME/yarn/config"
