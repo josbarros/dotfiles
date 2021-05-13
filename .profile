@@ -40,5 +40,5 @@ export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
 
 # Secret
 if [ -r "$XDG_CONFIG_HOME"/secret ]; then
-    source "$XDG_CONFIG_HOME"/secret
+    . "$XDG_CONFIG_HOME"/secret
 fi
