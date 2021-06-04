@@ -12,6 +12,7 @@
 	fi = "!git commit -a -m 'dummy commit'; git rebase -i HEAD~2; git push -f"
 	fe = fetch
 	ma = checkout master
+	de = checkout develop
 	cp = "!git commit; git push"
 	cap = "!git commit -a; git push"
 	re = restore .
