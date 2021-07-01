@@ -9,8 +9,8 @@ let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
 syntax on
 colorscheme ron
 
-" Set numbers
-set relativenumber
+" Set hybrid line numbers
+set number relativenumber
 
 " Set ruler
 set ruler
