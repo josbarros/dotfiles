@@ -1,5 +1,5 @@
 [alias]
-	amend = commit --amend
+	ame = "!git add -A; git commit --amend"
 	back = checkout -
 	br = rev-parse --abbrev-ref HEAD
 	co = checkout
@@ -9,10 +9,11 @@
 	recent = for-each-ref --sort=-committerdate --count=10 --format='%(refname:short)' refs/heads/
 	sq = "!git reset --soft HEAD~$1 ; git commit ;"
 	st = status
-	fi = "!git commit -a -m 'dummy commit'; git rebase -i HEAD~2; git push -f"
+	fi = "!git commit -a -m 'dummy commit'; git rebase -i HEAD~2;"
 	fe = fetch
 	ma = checkout master
 	de = checkout develop
+	ct = checkout --track
 	cp = "!git commit; git push"
 	cap = "!git commit -a; git push"
 	re = restore .
