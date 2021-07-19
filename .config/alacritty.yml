@@ -2,6 +2,9 @@
 font:
   size: 20
     
+# Background opacity
+background_opacity: 0.80
+    
 # Colors
 colors:
   # Normal colors
