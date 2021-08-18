@@ -20,6 +20,7 @@
 	puf = push -f
 	stl = stash list
 	stp = stash pop
+	res = reset HEAD~1
 [pull]
 	rebase = true
 [credential]
