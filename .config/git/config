@@ -1,26 +1,28 @@
 [alias]
 	ame = "!git add -A; git commit --amend"
-	back = checkout -
 	br = rev-parse --abbrev-ref HEAD
+	back = checkout -
 	co = checkout
 	new = checkout -b
+	ct = checkout --track
+	ma = checkout master
+	de = checkout develop
 	mc = "!git merge --no-commit --no-ff $1 && git merge --abort ; "
 	pu = pull
 	recent = for-each-ref --sort=-committerdate --count=10 --format='%(refname:short)' refs/heads/
 	sq = "!git reset --soft HEAD~$1 ; git commit ;"
+	res = reset HEAD~1
 	st = status
 	fi = "!git commit -a -m 'dummy commit'; git rebase -i HEAD~2;"
 	fe = fetch
-	ma = checkout master
-	de = checkout develop
-	ct = checkout --track
+	ca = commit -a
 	cp = "!git commit; git push"
 	cap = "!git commit -a; git push"
 	re = restore .
 	puf = push -f
 	stl = stash list
 	stp = stash pop
-	res = reset HEAD~1
+	stn = stash push -m
 [pull]
 	rebase = true
 [credential]
