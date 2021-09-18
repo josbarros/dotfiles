@@ -38,6 +38,7 @@ export GNUPGHOME="$XDG_DATA_HOME"/gnupg
 export ZPLUG_HOME="$XDG_DATA_HOME"/zsh/zplug
 export AWS_SHARED_CREDENTIALS_FILE="$XDG_CONFIG_HOME"/aws/credentials
 export AWS_CONFIG_FILE="$XDG_CONFIG_HOME"/aws/config
+export PYTHONSTARTUP="$XDG_CONFIG_HOME"/pythonstartup.py
 export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
 
 # Secret
