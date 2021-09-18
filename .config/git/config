@@ -19,7 +19,6 @@
 	cp = "!git commit; git push"
 	cap = "!git commit -a; git push"
 	re = restore .
-	puf = push -f
 	stl = stash list
 	stp = stash pop
 	stn = stash push -m
