@@ -22,6 +22,10 @@
 	stl = stash list
 	stp = stash pop
 	stn = stash push -m
+	rm = branch -d
+	rmf = branch -D
+	rmr = push origin --delete
+	mov = branch -m
 [pull]
 	rebase = true
 [credential]
