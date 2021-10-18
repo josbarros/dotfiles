@@ -15,6 +15,9 @@ set number relativenumber
 " Set ruler
 set ruler
 
+" Backspace rules
+set backspace=eol,start
+
 " PDF viewer for Latex Preview
 " let g:livepreview_previewer = $PDFVIEWER
 
