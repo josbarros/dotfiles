@@ -2,6 +2,7 @@
 	# checkout
 	co = checkout
 	new = checkout -b
+	ren = branch -m
 	ma = checkout master
 	de = checkout develop
 	# commit
