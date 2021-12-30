@@ -1,2 +1,3 @@
 .config/secret
 .config/git/local##*
+.ssh/pppp*
