@@ -17,7 +17,8 @@ export LS_COLORS='di=1;36:ln=1;35:so=1;32:pi=1;33:ex=1;31:bd=34;46:cd=34;43:su=3
 export GIT_COMPLETION_CHECKOUT_NO_GUESS=1
 
 # Needed for yadm encrypt to work on MacOS
-export GPG_TTY=$(tty)
+GPG_TTY=$(tty)
+export GPG_TTY
 
 # Cleanup
 export XDG_CONFIG_HOME="$HOME/.config"
