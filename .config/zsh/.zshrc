@@ -7,6 +7,12 @@ zstyle ':vcs_info:git:*' formats '%F{165}(%b)%f'
 zstyle ':vcs_info:*' enable git
 PROMPT='%F{cyan1}%1~%f %# $vcs_info_msg_0_ '
 
+# Zinit
+source $ZINIT_HOME/zinit.zsh
+zinit load "zsh-users/zsh-history-substring-search"
+zinit load "zsh-users/zsh-syntax-highlighting"
+zinit load  "zsh-users/zsh-autosuggestions"
+
 # Autocomplete
 autoload -Uz compinit && compinit
 
@@ -66,19 +72,6 @@ alias yarn="yarn --use-yarnrc $XDG_CONFIG_HOME/yarn/config"
 
 # NVM
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-
-# Zplug
-source $ZPLUG_HOME/init.zsh
-zplug "zsh-users/zsh-history-substring-search"
-zplug "zsh-users/zsh-syntax-highlighting"
-zplug "zsh-users/zsh-autosuggestions"
-if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    fi
-fi
-zplug load 
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 [[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
