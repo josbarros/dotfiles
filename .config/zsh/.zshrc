@@ -11,7 +11,7 @@ PROMPT='%F{cyan1}%1~%f %# $vcs_info_msg_0_ '
 source $ZINIT_HOME/zinit.zsh
 zinit load "zsh-users/zsh-history-substring-search"
 zinit load "zsh-users/zsh-syntax-highlighting"
-zinit load  "zsh-users/zsh-autosuggestions"
+zinit load "zsh-users/zsh-autosuggestions"
 
 # Autocomplete
 autoload -Uz compinit && compinit
@@ -59,7 +59,10 @@ else
 fi    
 
 # Histfile
-HISTFILE="$XDG_DATA_HOME"/zsh/.zhistory
+HISTFILE="$XDG_DATA_HOME"/.zhistory
+HISTSIZE=10000
+SAVEHIST=10000
+setopt INC_APPEND_HISTORY_TIME
 
 # Hidden File Autocomplete
 setopt globdots
