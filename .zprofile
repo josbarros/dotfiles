@@ -20,9 +20,6 @@ export GIT_COMPLETION_CHECKOUT_NO_GUESS=1
 GPG_TTY=$(tty)
 export GPG_TTY
 
-# Enable Firefox Video Hardware acceleration on Wayland
-MOZ_ENABLE_WAYLAND=1
-
 # Cleanup
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
