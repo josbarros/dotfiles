@@ -50,8 +50,8 @@ alias df='df -h'
 alias grep='grep --color=auto'
 alias ccat='highlight'
 if [ $(uname -s) = "Darwin" ]; then
-    alias rm='rm -v'
-    alias ls='ls -hG' # color
+    alias rm='grm -vI'
+    alias ls='gls -hNv --color=auto --group-directories-first'
 else
     alias rm='rm -vI'
     alias ls='ls -hNv --color=auto --group-directories-first'
