@@ -1,5 +1,6 @@
 # Variables
 set drawbox
+set previewer '~/.config/lf/scope' 
 
 # Commands
 cmd open ${{
@@ -49,6 +50,7 @@ map <backspace2> set hidden!
 map D delete
 map T trash
 map E extract
+map C clear
 
 ## Renaming
 map A rename # at the very end
