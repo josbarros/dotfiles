@@ -1,6 +1,7 @@
 # Variables
 set drawbox
 set previewer '~/.config/lf/scope' 
+set cleaner '~/.config/lf/cleaner'
 
 # Commands
 cmd open ${{
