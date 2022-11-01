@@ -21,6 +21,9 @@ set backspace=eol,start
 " Enable spellchecker automatically for Markdown files
 autocmd FileType markdown setlocal spell spelllang=en_gb
 
+" Sane copy paste
+vnoremap p "_dP
+
 " PDF viewer for Latex Preview
 " let g:livepreview_previewer = $PDFVIEWER
 
