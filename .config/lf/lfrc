@@ -2,6 +2,9 @@
 set drawbox
 set previewer '~/.config/lf/scope' 
 set cleaner '~/.config/lf/cleaner'
+set shell zsh
+set shellopts '-euy'
+set ifs "\n"
 
 # Commands
 cmd open ${{
