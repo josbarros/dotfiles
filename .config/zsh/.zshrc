@@ -58,6 +58,9 @@ else
     alias diff='diff --color=auto'
 fi    
 
+# Open Alacritty in XWayland mode
+alias xcritty='WAYLAND_DISPLAY= alacritty'
+
 # Histfile
 HISTFILE="$XDG_DATA_HOME"/.zhistory
 HISTSIZE=10000
