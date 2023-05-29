@@ -6,7 +6,6 @@ set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_CONFIG_HOME/vim/after,$VIM,$VIMRUNTIME
 let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
 
 " Colors e tal
-syntax on
 colorscheme ron
 
 " Set hybrid line numbers
@@ -40,6 +39,9 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 
 " A Vim Plugin for Lively Previewing LaTeX PDF Output
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+
+" A plugin to force window transparency
+Plug 'tribela/vim-transparent'
 
 " Initialize plugin system
 call plug#end()
