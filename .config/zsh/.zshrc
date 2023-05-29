@@ -42,7 +42,7 @@ function zle-line-init zle-keymap-select {
 zle -N zle-line-init
 zle -N zle-keymap-select
 
-# Alias 
+# Aliases
 alias cp='cp -iv'
 alias mv='mv -iv'
 alias mkd='mkdir -pv'
@@ -58,8 +58,9 @@ else
     alias diff='diff --color=auto'
 fi    
 
-# Open Alacritty in XWayland mode
+# Linux specific aliases
 alias xcritty='WAYLAND_DISPLAY= alacritty'
+alias geject='gio mount -e'
 
 # Histfile
 HISTFILE="$XDG_DATA_HOME"/.zhistory
