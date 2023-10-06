@@ -1,8 +1,11 @@
-# Adds `~/.local/bin` to $PATH
+# Add stuff to $PATH
+export PATH="/opt/homebrew/bin:$PATH"
 export PATH="$PATH:$HOME/.local/bin"
-
-# Yarn shit
+export PATH="$PATH:$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
 export PATH="$HOME/.config/yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+# Set Homebrew variables
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # Use vim as default
 export EDITOR=vim
@@ -35,7 +38,7 @@ export SDKMAN_DIR="$XDG_DATA_HOME"/sdkman
 export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
 export CUDA_CACHE_PATH="$XDG_CACHE_HOME"/nv
 export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
-export ZINIT_HOME="$XDG_DATA_HOME"/zinit
+export ZINIT_HOME="$XDG_DATA_HOME"/zinit/zinit.git
 export AWS_SHARED_CREDENTIALS_FILE="$XDG_CONFIG_HOME"/aws/credentials
 export AWS_CONFIG_FILE="$XDG_CONFIG_HOME"/aws/config
 export PYTHONSTARTUP="$XDG_CONFIG_HOME"/pythonstartup.py
@@ -45,3 +48,4 @@ export TERMINFO_DIRS="$XDG_DATA_HOME"/terminfo:/usr/share/terminfo
 
 # Secret
 . "$XDG_CONFIG_HOME"/secret
+
