@@ -23,6 +23,11 @@ export GPG_TTY
 # Force Wayland on Firefox/Thunderbird 
 export MOZ_ENABLE_WAYLAND=1
 
+# AWS
+export AWS_SHARED_CREDENTIALS_FILE="$XDG_CONFIG_HOME"/aws/credentials
+export AWS_CONFIG_FILE="$XDG_CONFIG_HOME"/aws/config
+export AWS_REGION=eu-center-1
+
 # Cleanup
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
@@ -38,8 +43,6 @@ export SDKMAN_DIR="$XDG_DATA_HOME"/sdkman
 export CUDA_CACHE_PATH="$XDG_CACHE_HOME"/nv
 export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
 export ZINIT_HOME="$XDG_DATA_HOME"/zinit/zinit.git
-export AWS_SHARED_CREDENTIALS_FILE="$XDG_CONFIG_HOME"/aws/credentials
-export AWS_CONFIG_FILE="$XDG_CONFIG_HOME"/aws/config
 export PYTHONSTARTUP="$XDG_CONFIG_HOME"/pythonstartup.py
 export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
 export TERMINFO="$XDG_DATA_HOME"/terminfo
