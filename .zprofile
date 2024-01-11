@@ -23,15 +23,17 @@ export GPG_TTY
 # Force Wayland on Firefox/Thunderbird 
 export MOZ_ENABLE_WAYLAND=1
 
+# XDG
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CACHE_HOME="$HOME/.cache"
+
 # AWS
 export AWS_SHARED_CREDENTIALS_FILE="$XDG_CONFIG_HOME"/aws/credentials
 export AWS_CONFIG_FILE="$XDG_CONFIG_HOME"/aws/config
 export AWS_REGION=eu-center-1
 
 # Cleanup
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_DATA_HOME="$HOME/.local/share"
-export XDG_CACHE_HOME="$HOME/.cache"
 export LESSHISTFILE="$XDG_CACHE_HOME"/less/history
 export ZDOTDIR="$XDG_CONFIG_HOME"/zsh
 export GRADLE_USER_HOME="$XDG_DATA_HOME"/gradle
