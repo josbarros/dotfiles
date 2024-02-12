@@ -1,3 +1,5 @@
 .config/secret
 .config/git/local##*
 .ssh/config
+.local/share/gradle/gradle.properties
+
