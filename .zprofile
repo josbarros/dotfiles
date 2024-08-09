@@ -28,10 +28,6 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
 
-# AWS
-export AWS_SHARED_CREDENTIALS_FILE="$XDG_CONFIG_HOME"/aws/credentials
-export AWS_CONFIG_FILE="$XDG_CONFIG_HOME"/aws/config
-
 # Cleanup
 export LESSHISTFILE="$XDG_CACHE_HOME"/less/history
 export ZDOTDIR="$XDG_CONFIG_HOME"/zsh
