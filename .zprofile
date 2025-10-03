@@ -4,8 +4,10 @@ export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
 export PATH="$PATH:$HOME/.config/yarn/bin:$HOME/.config/yarn/global/node_modules/.bin"
 
+
 # Set Homebrew variables
-eval "$(/opt/homebrew/bin/brew shellenv)"
+# todo docs.brew.sh/installation
+# eval "$(/opt/homebrew/bin/brew shellenv)" 
 
 # Use vim as default
 export EDITOR=vim
