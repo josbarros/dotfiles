@@ -4,7 +4,6 @@ export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
 export PATH="$PATH:$HOME/.config/yarn/bin:$HOME/.config/yarn/global/node_modules/.bin"
 
-
 # Set Homebrew variables
 # todo docs.brew.sh/installation
 # eval "$(/opt/homebrew/bin/brew shellenv)" 
@@ -27,8 +26,9 @@ export MOZ_ENABLE_WAYLAND=1
 
 # XDG
 export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/state"
 
 # Cleanup
 export LESSHISTFILE="$XDG_CACHE_HOME"/less/history
@@ -46,4 +46,5 @@ export PYTHONSTARTUP="$XDG_CONFIG_HOME"/pythonstartup.py
 export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
 export TERMINFO="$XDG_DATA_HOME"/terminfo
 export TERMINFO_DIRS="$XDG_DATA_HOME"/terminfo:/usr/share/terminfo
+export W3M_DIR="$XDG_STATE_HOME/w3m"
 
