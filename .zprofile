@@ -31,6 +31,7 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 
 # Cleanup
+export SSH_AUTH_SOCK="$HOME/.var/app/com.bitwarden.desktop/data/.bitwarden-ssh-agent.sock"
 export LESSHISTFILE="$XDG_CACHE_HOME"/less/history
 export ZDOTDIR="$XDG_CONFIG_HOME"/zsh
 export GRADLE_USER_HOME="$XDG_DATA_HOME"/gradle
