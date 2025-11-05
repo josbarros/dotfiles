@@ -2,9 +2,9 @@
 
 # Install everything
 sudo dnf config-manager setopt rpmfusion-nonfree-steam.enabled=1
-
 sudo dnf install -y gnome-tweaks gnome-extensions-app ranger alacritty zsh thunderbird steam gnupg2-scdaemon
 
+sudo flatpak remote-modify --enable flathub
 flatpak install -y flathub org.signal.Signal com.discordapp.Discord com.yubico.yubioath
 
 # Configure Zsh
