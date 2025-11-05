@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# Install bitwarden desktop
+sudo flatpak remote-modify --enable flathub
+flatpak install -y flathub com.bitwarden.desktop
+
+export SSH_AUTH_SOCK="$HOME/.var/app/com.bitwarden.desktop/data/.bitwarden-ssh-agent.sock"
+
+echo "Waiting for the user to enable the Bitwarden SSH agent..."
+while true; do
+    if ssh-add -L > /dev/null 2>&1; then
+        echo "SSH key(s) are loaded!"
+        break
+    fi
+done
+
+# Install yadm in a Fedora system and clone the dotfiles repo
+sudo dnf config-manager addrepo --from-repofile=https://download.opensuse.org/repositories/home:TheLocehiliosan:yadm/Fedora_42/home:TheLocehiliosan:yadm.repo
+sudo dnf install -y yadm
+
+yadm clone git@github.com:josbarros/dotfiles.git
