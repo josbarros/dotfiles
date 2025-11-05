@@ -1,7 +1,11 @@
 #!/bin/sh
 
 # Install everything
-sudo dnf install -y gnome-tweaks ranger alacritty zsh thunderbird
+sudo dnf config-manager setopt rpmfusion-nonfree-steam.enabled=1
+
+sudo dnf install -y gnome-tweaks gnome-extensions-app ranger alacritty zsh thunderbird steam
+
+flatpak install -y flathub org.signal.Signal com.discordapp.Discord 
 
 # Configure Zsh
 if [ "$SHELL" != "$(which zsh)" ]; then
@@ -13,7 +17,8 @@ fi
 
 ZINIT_HOME="$XDG_DATA_HOME/zinit"
 bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"
-zinit self-update
+
+# zsh -c 'zinit self-update'
 
 source ~/.zprofile
 
