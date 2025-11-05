@@ -19,3 +19,5 @@ sudo dnf config-manager addrepo --from-repofile=https://download.opensuse.org/re
 sudo dnf install -y yadm
 
 yadm clone git@github.com:josbarros/dotfiles.git
+yadm gitconfig user.email "joserui@joseruibarros.com"
+yadm gitconfig user.name "José Rui Barros"
