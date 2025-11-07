@@ -16,7 +16,7 @@ dnf check-update
 sudo dnf install -y gnome-tweaks gnome-extensions-app ranger alacritty zsh steam gnupg2-scdaemon nextcloud-client code
 
 sudo flatpak remote-modify --enable flathub
-flatpak install -y flathub org.signal.Signal com.discordapp.Discord com.yubico.yubioath eu.betterbird.Betterbird
+flatpak install -y flathub org.signal.Signal com.discordapp.Discord com.yubico.yubioath eu.betterbird.Betterbird io.ente.photos
 
 # Allow betterbird to access gpg
 flatpak override --user --filesystem="$GNUPGHOME" eu.betterbird.Betterbird 
