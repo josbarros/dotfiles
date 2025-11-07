@@ -4,8 +4,6 @@
 
 # Config
 OPT="-aPh"
-SNAP="/run/media/rui/8b9842f5-de26-4e41-90a5-8759a5cf1f3f/backintime"
-LAST="$SNAP/last_snapshot"
 LINK="--link-dest=$LAST/"
 SRC="$HOME/Calibre_Library $HOME/Documents $HOME/Nextcloud $HOME/Pictures"
 DATE="$SNAP/$(date "+%Y-%b-%d:_%T")"

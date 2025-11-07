@@ -47,4 +47,7 @@ export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
 export TERMINFO="$XDG_DATA_HOME"/terminfo
 export TERMINFO_DIRS="$XDG_DATA_HOME"/terminfo:/usr/share/terminfo
 export W3M_DIR="$XDG_STATE_HOME/w3m"
+export SNAP="/run/media/rui/8b9842f5-de26-4e41-90a5-8759a5cf1f3f/backintime"
+export LAST="$SNAP/last_snapshot"
+
 
