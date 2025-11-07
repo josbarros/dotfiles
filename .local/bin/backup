@@ -4,10 +4,10 @@
 
 # Config
 OPT="-aPh"
-SNAP="/run/media/rui/8b9842f5-de26-4e41-90a5-8759a5cf1f3f/backintime/backintime/ruiManjaroPC/rui/1"
+SNAP="/run/media/rui/8b9842f5-de26-4e41-90a5-8759a5cf1f3f/backintime"
 LAST="$SNAP/last_snapshot"
 LINK="--link-dest=$LAST/"
-SRC="$HOME/Backups $HOME/media-pessoal $HOME/PautasTabs $HOME/SoftwareProjects $HOME/Documents $HOME/livros-artigos $HOME/Music $HOME/Pictures $HOME/Videos"
+SRC="$HOME/Calibre_Library $HOME/Documents $HOME/Nextcloud $HOME/Pictures"
 DATE="$SNAP/$(date "+%Y-%b-%d:_%T")"
 
 # Run rsync to create snapshot
