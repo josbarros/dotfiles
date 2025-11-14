@@ -21,3 +21,13 @@ export GIT_SSH_COMMAND="ssh -o IdentityAgent=none -o IdentitiesOnly=yes -i $SSH_
 yadm clone git@github.com:josbarros/dotfiles.git
 yadm gitconfig user.email "joserui@joseruibarros.com"
 yadm gitconfig user.name "José Rui Barros"
+
+# Configure Zsh
+sudo dnf install zsh
+
+if [ "$SHELL" != "$(which zsh)" ]; then
+  chsh -s $(which zsh)
+  echo "Shell changed to zsh. Please log off."
+else
+  echo "You are already using zsh."
+fi
