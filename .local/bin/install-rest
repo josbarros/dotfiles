@@ -13,7 +13,7 @@ sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\nautorefresh=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null
 
 dnf check-update
-sudo dnf install -y gnome-tweaks gnome-extensions-app ranger alacritty zsh steam gnupg2-scdaemon nextcloud-client code
+sudo dnf install -y gnome-tweaks gnome-extensions-app ranger alacritty zsh steam gnupg2-scdaemon nextcloud-client code calibre
 
 sudo flatpak remote-modify --enable flathub
 flatpak install -y flathub org.signal.Signal com.discordapp.Discord com.yubico.yubioath eu.betterbird.Betterbird io.ente.photos
