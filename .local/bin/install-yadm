@@ -13,6 +13,18 @@ while true; do
 done
 cd -
 
+# Configure Zsh
+sudo dnf install zsh
+
+if [ "$SHELL" != "$(which zsh)" ]; then
+  chsh -s $(which zsh)
+  echo "Shell changed to zsh."
+else
+  echo "You are already using zsh."
+fi
+
+rm -f ~/.bash* ~/.z*
+
 # Install yadm in a Fedora system and clone the dotfiles repo
 sudo dnf config-manager addrepo --from-repofile=https://download.opensuse.org/repositories/home:TheLocehiliosan:yadm/Fedora_42/home:TheLocehiliosan:yadm.repo
 sudo dnf install -y yadm
@@ -22,12 +34,4 @@ yadm clone git@github.com:josbarros/dotfiles.git
 yadm gitconfig user.email "joserui@joseruibarros.com"
 yadm gitconfig user.name "José Rui Barros"
 
-# Configure Zsh
-sudo dnf install zsh
-
-if [ "$SHELL" != "$(which zsh)" ]; then
-  chsh -s $(which zsh)
-  echo "Shell changed to zsh. Please log off."
-else
-  echo "You are already using zsh."
-fi
+echo "Please log off now."
