@@ -18,9 +18,6 @@ sudo dnf install -y gnome-tweaks gnome-extensions-app ranger alacritty zsh steam
 sudo flatpak remote-modify --enable flathub
 flatpak install -y flathub org.signal.Signal com.discordapp.Discord com.yubico.yubioath eu.betterbird.Betterbird io.ente.photos
 
-# Allow betterbird to access gpg
-flatpak override --user --filesystem="$GNUPGHOME" eu.betterbird.Betterbird 
-
 # Configure Zsh
 ZINIT_HOME="$XDG_DATA_HOME/zinit"
 bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"
@@ -37,8 +34,9 @@ source ~/.zprofile
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 nvm install --lts
 
-# GPG Stuff
+# Betterbird GPG Stuff
 sudo dnf remove -y opensc
-sudo systemctl enable pcscd.socket pcscd.service
-sudo systemctl start pcscd.socket pcscd.service
+flatpak override --user --filesystem="$GNUPGHOME" eu.betterbird.Betterbird 
+sudo systemctl enable pcscd.socket pcscd.service 
+sudo systemctl start pcscd.socket pcscd.service 
 gpg --import "$XDG_DATA_HOME/public.asc"
