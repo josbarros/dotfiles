@@ -5,23 +5,22 @@ echo 'en_US' > "$XDG_CONFIG_HOME/user-dirs.locale"
 rm -f "$XDG_CONFIG_HOME/user-dirs.dirs"
 LANG=en_US.UTF-8 xdg-user-dirs-update 
 
-# Install everything
-sudo dnf config-manager setopt rpmfusion-nonfree-steam.enabled=1 # steam repo
+# Install everything dnf
+dnf check-update
+sudo dnf install -y gnome-tweaks gnome-extensions-app ranger alacritty gnupg2-scdaemon nextcloud-client calibre
 
-# VSCode repo
+# Install steam
+sudo dnf config-manager setopt rpmfusion-nonfree-steam.enabled=1 # steam repo
+sudo dnf install -y steam
+
+# Install vscode 
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\nautorefresh=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null
-
-dnf check-update
-sudo dnf install -y gnome-tweaks gnome-extensions-app ranger alacritty zsh steam gnupg2-scdaemon nextcloud-client code calibre
-
-sudo flatpak remote-modify --enable flathub
-flatpak install -y flathub org.signal.Signal com.discordapp.Discord com.yubico.yubioath eu.betterbird.Betterbird io.ente.photos
+sudo dnf install -y code
 
 # Configure Zsh
 ZINIT_HOME="$XDG_DATA_HOME/zinit"
 bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"
-
 # zsh -c 'zinit self-update'
 
 # Configure Vim
@@ -34,8 +33,13 @@ source ~/.zprofile
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 nvm install --lts
 
-# Betterbird GPG Stuff
+# Install everything flathub
+sudo flatpak remote-modify --enable flathub
+flatpak install -y flathub org.signal.Signal com.discordapp.Discord com.yubico.yubioath io.ente.photos
+
+# Install Betterbird 
 sudo dnf remove -y opensc
+flatpak install -y flathub eu.betterbird.Betterbird
 flatpak override --user --filesystem="$GNUPGHOME" eu.betterbird.Betterbird 
 sudo systemctl enable pcscd.socket pcscd.service 
 sudo systemctl start pcscd.socket pcscd.service 
