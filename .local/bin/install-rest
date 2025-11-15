@@ -1,12 +1,15 @@
 #!/bin/sh
 
+# Start
+dnf check-update
+sudo flatpak remote-modify --enable flathub
+
 # Set base dirs to english 
 echo 'en_US' > "$XDG_CONFIG_HOME/user-dirs.locale"
 rm -f "$XDG_CONFIG_HOME/user-dirs.dirs"
 LANG=en_US.UTF-8 xdg-user-dirs-update 
 
 # Install everything dnf
-dnf check-update
 sudo dnf install -y gnome-tweaks gnome-extensions-app ranger alacritty gnupg2-scdaemon nextcloud-client calibre
 
 # Install steam
@@ -34,7 +37,6 @@ source ~/.zprofile
 nvm install --lts
 
 # Install everything flathub
-sudo flatpak remote-modify --enable flathub
 flatpak install -y flathub org.signal.Signal com.discordapp.Discord com.yubico.yubioath io.ente.photos
 
 # Install Betterbird 

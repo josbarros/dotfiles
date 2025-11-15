@@ -1,5 +1,20 @@
 #!/bin/sh
 
+# Start
+dnf check-update
+
+# Configure Zsh
+sudo dnf install -y zsh
+
+if [ "$SHELL" != "$(which zsh)" ]; then
+  chsh -s $(which zsh)
+  echo "Shell changed to zsh."
+  rm -f ~/.z* # remove the stuff that will be pulled from git
+else
+  echo "You are already using zsh."
+fi
+
+# Add ssh keys
 SSH_DIR="$HOME/.ssh"
 mkdir -p "$SSH_DIR"
 cd "$SSH_DIR" 
@@ -12,17 +27,6 @@ while true; do
     ssh-keygen -K 	
 done
 cd -
-
-# Configure Zsh
-sudo dnf install zsh
-
-if [ "$SHELL" != "$(which zsh)" ]; then
-  chsh -s $(which zsh)
-  echo "Shell changed to zsh."
-  rm -f ~/.z* # remove the stuff that will be pulled from git
-else
-  echo "You are already using zsh."
-fi
 
 # Install yadm in a Fedora system and clone the dotfiles repo
 sudo dnf config-manager addrepo --from-repofile=https://download.opensuse.org/repositories/home:TheLocehiliosan:yadm/Fedora_42/home:TheLocehiliosan:yadm.repo
