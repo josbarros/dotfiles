@@ -32,14 +32,13 @@ mkdir -p "$XDG_CACHE_HOME/vim/swap" "$XDG_CACHE_HOME/vim/backup"
 
 # Install nvm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
-source ~/.zprofile
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 nvm install --lts
 
 # Install everything flathub
 flatpak install -y flathub org.signal.Signal com.discordapp.Discord com.yubico.yubioath io.ente.photos
 
-# Install Betterbird 
+# Install Betterbird --- TODO Rever esta merda
 sudo dnf remove -y opensc
 flatpak install -y flathub eu.betterbird.Betterbird
 flatpak override --user --filesystem="$GNUPGHOME" eu.betterbird.Betterbird 
@@ -47,3 +46,8 @@ sudo systemctl enable pcscd.socket pcscd.service
 sudo systemctl start pcscd.socket pcscd.service 
 gpg --import "$XDG_DATA_HOME/public.asc"
 
+# Install tlp
+sudo dnf install -y tlp tlp-rdw
+sudo dnf remove -y tuned tuned-ppd
+sudo systemctl enable tlp.service
+sudo systemctl mask systemd-rfkill.service systemd-rfkill.socket
