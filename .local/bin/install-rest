@@ -46,3 +46,4 @@ flatpak override --user --filesystem="$GNUPGHOME" eu.betterbird.Betterbird
 sudo systemctl enable pcscd.socket pcscd.service 
 sudo systemctl start pcscd.socket pcscd.service 
 gpg --import "$XDG_DATA_HOME/public.asc"
+
