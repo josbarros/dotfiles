@@ -46,8 +46,3 @@ sudo systemctl enable pcscd.socket pcscd.service
 sudo systemctl start pcscd.socket pcscd.service 
 gpg --import "$XDG_DATA_HOME/public.asc"
 
-# Install tlp
-sudo dnf install -y tlp tlp-rdw
-sudo dnf remove -y tuned tuned-ppd
-sudo systemctl enable tlp.service
-sudo systemctl mask systemd-rfkill.service systemd-rfkill.socket

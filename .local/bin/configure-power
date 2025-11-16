@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# Install tlp
+sudo dnf install -y tlp tlp-rdw
+sudo dnf remove -y tuned tuned-ppd
+sudo systemctl enable tlp.service
+sudo systemctl mask systemd-rfkill.service systemd-rfkill.socket
+
+# Install powertop
+sudo dnf install -y powertop
+# TODO Ver maneira de ja esta calibrado ou nao, ou se isso e' sequer preciso
+sudo powertop -c # calibrate
+
+# TODO Import power management script
