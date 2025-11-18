@@ -1,8 +1,9 @@
 #!/bin/sh
 
 # Start
-dnf check-update
+sudo dnf upgrade --refresh
 sudo flatpak remote-modify --enable flathub
+sudo flatpak update -y
 
 # Set base dirs to english 
 echo 'en_US' > "$XDG_CONFIG_HOME/user-dirs.locale"
@@ -10,15 +11,17 @@ rm -f "$XDG_CONFIG_HOME/user-dirs.dirs"
 LANG=en_US.UTF-8 xdg-user-dirs-update 
 
 # Install everything dnf
-sudo dnf install -y gnome-tweaks gnome-extensions-app ranger alacritty gnupg2-scdaemon nextcloud-client calibre
+sudo dnf install -y gnome-tweaks gnome-extensions-app ranger alacritty gnupg2-scdaemon nextcloud-client calibre light
 
 # Install steam
 sudo dnf config-manager setopt rpmfusion-nonfree-steam.enabled=1 # steam repo
+sudo dnf makecache --refresh
 sudo dnf install -y steam
 
 # Install vscode 
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\nautorefresh=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null
+sudo dnf makecache --refresh
 sudo dnf install -y code
 
 # Configure Zsh
