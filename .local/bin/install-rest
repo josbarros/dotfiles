@@ -36,7 +36,7 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 nvm install --lts
 
 # Install everything flathub
-flatpak install -y flathub org.signal.Signal com.discordapp.Discord com.yubico.yubioath io.ente.photos
+flatpak install -y flathub org.signal.Signal com.discordapp.Discord com.yubico.yubioath io.ente.photos com.brave.Browser
 
 # Install Betterbird --- TODO Rever esta merda
 sudo dnf remove -y opensc
