@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Start
-sudo dnf upgrade --refresh
+sudo dnf upgrade --refresh -y
 sudo flatpak remote-modify --enable flathub
 sudo flatpak update -y
 
@@ -39,7 +39,7 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 nvm install --lts
 
 # Install everything flathub
-flatpak install -y flathub org.signal.Signal com.discordapp.Discord com.yubico.yubioath io.ente.photos com.brave.Browser
+flatpak install -y flathub org.signal.Signal com.discordapp.Discord com.yubico.yubioath io.ente.photos com.brave.Browser com.bitwarden.desktop
 
 # Install Betterbird --- TODO Rever esta merda
 sudo dnf remove -y opensc
