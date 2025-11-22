@@ -50,26 +50,6 @@ function zle-line-init zle-keymap-select {
 zle -N zle-line-init
 zle -N zle-keymap-select
 
-# Aliases
-alias cp='cp -iv'
-alias mv='mv -iv'
-alias mkd='mkdir -pv'
-alias df='df -h'
-alias grep='grep --color=auto'
-alias ccat='highlight'
-if [ $(uname -s) = "Darwin" ]; then
-    alias rm='grm -vI'
-    alias ls='gls -hNv --color=auto --group-directories-first'
-else
-    alias rm='rm -vI'
-    alias ls='ls -hNv --color=auto --group-directories-first'
-    alias diff='diff --color=auto'
-fi    
-
-# Linux specific aliases
-alias xcritty='WAYLAND_DISPLAY= alacritty'
-alias geject='gio mount -e'
-
 # Histfile
 HISTFILE="$XDG_DATA_HOME"/.zhistory
 HISTSIZE=10000
@@ -79,8 +59,8 @@ setopt INC_APPEND_HISTORY_TIME
 # Hidden File Autocomplete
 setopt globdots
 
-# Yarn is a mess
-alias yarn="yarn --use-yarnrc $XDG_CONFIG_HOME/yarn/config"
+# Load aliases
+source "$XDG_CONFIG_HOME/aliases"
 
 # NVM
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
