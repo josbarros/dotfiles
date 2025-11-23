@@ -39,6 +39,7 @@ export XDG_STATE_HOME="$HOME/.local/state"
 # ZSH
 export ZDOTDIR="$XDG_CONFIG_HOME"/zsh
 export ZINIT_HOME="$XDG_DATA_HOME"/zinit/zinit.git
+export SPACESHIP_CONFIG="$ZDOTDIR/spaceship.zsh"
 
 # Dev crap
 export GRADLE_USER_HOME="$XDG_DATA_HOME"/gradle
