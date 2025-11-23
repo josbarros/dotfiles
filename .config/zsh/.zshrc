@@ -26,15 +26,6 @@ setopt globdots
 zstyle ':completion:*' menu select
 zmodload zsh/complist
 
-# Git stuff -- TODO Delete this
-autoload -Uz vcs_info
-precmd_vcs_info() { vcs_info }
-precmd_functions+=( precmd_vcs_info )
-setopt prompt_subst
-zstyle ':vcs_info:git:*' formats '%F{165}(%b)%f'
-zstyle ':vcs_info:*' enable git
-PROMPT='%F{cyan1}%1~%f %# $vcs_info_msg_0_ '
-
 # Extra vim keys configuration
 export KEYTIMEOUT=1 # Make esc key fast
 bindkey '^R' history-incremental-search-backward # Enable search in vi mode
