@@ -1,17 +1,5 @@
-# Git stuff
-autoload -Uz vcs_info
-precmd_vcs_info() { vcs_info }
-precmd_functions+=( precmd_vcs_info )
-setopt prompt_subst
-zstyle ':vcs_info:git:*' formats '%F{165}(%b)%f'
-zstyle ':vcs_info:*' enable git
-PROMPT='%F{cyan1}%1~%f %# $vcs_info_msg_0_ '
-
 # Zinit
 source $ZINIT_HOME/zinit.zsh
-zinit load "zsh-users/zsh-history-substring-search"
-zinit load "zsh-users/zsh-syntax-highlighting"
-zinit load "zsh-users/zsh-autosuggestions"
 
 # Load a few important annexes, without Turbo
 # (this is currently required for annexes)
@@ -21,12 +9,29 @@ zinit light-mode for \
     zdharma-continuum/zinit-annex-patch-dl \
     zdharma-continuum/zinit-annex-rust
 
+# More Zinit plugins
+zinit load "zsh-users/zsh-history-substring-search"
+zinit light "zsh-users/zsh-autosuggestions"
+zinit light "zsh-users/zsh-syntax-highlighting"
+
 # Autocomplete
 autoload -Uz compinit && compinit
+
+# Hidden File Autocomplete
+setopt globdots
 
 # Double tab menu
 zstyle ':completion:*' menu select
 zmodload zsh/complist
+
+# Git stuff
+autoload -Uz vcs_info
+precmd_vcs_info() { vcs_info }
+precmd_functions+=( precmd_vcs_info )
+setopt prompt_subst
+zstyle ':vcs_info:git:*' formats '%F{165}(%b)%f'
+zstyle ':vcs_info:*' enable git
+PROMPT='%F{cyan1}%1~%f %# $vcs_info_msg_0_ '
 
 # vi mode
 bindkey -v
@@ -56,15 +61,6 @@ HISTSIZE=10000
 SAVEHIST=10000
 setopt INC_APPEND_HISTORY_TIME
 
-# Hidden File Autocomplete
-setopt globdots
-
-# Load aliases
+# Load aliases - this must be at the end
 source "$XDG_CONFIG_HOME/aliases"
 
-# NVM
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-[[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
