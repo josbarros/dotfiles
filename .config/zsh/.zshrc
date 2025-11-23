@@ -26,7 +26,7 @@ setopt globdots
 zstyle ':completion:*' menu select
 zmodload zsh/complist
 
-# Git stuff
+# Git stuff -- TODO Delete this
 autoload -Uz vcs_info
 precmd_vcs_info() { vcs_info }
 precmd_functions+=( precmd_vcs_info )
@@ -35,27 +35,15 @@ zstyle ':vcs_info:git:*' formats '%F{165}(%b)%f'
 zstyle ':vcs_info:*' enable git
 PROMPT='%F{cyan1}%1~%f %# $vcs_info_msg_0_ '
 
-# vi mode
-bindkey -v
-export KEYTIMEOUT=1
-bindkey '^R' history-incremental-search-backward # otherwise it won't work
-
-# Use vim keys in tab complete menu:
+# Extra vim keys configuration
+export KEYTIMEOUT=1 # Make esc key fast
+bindkey '^R' history-incremental-search-backward # Enable search in vi mode
 bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
-
-# vim mode indicator
-function zle-line-init zle-keymap-select {
-    RPS1="${${KEYMAP/vicmd/-- NORMAL --}/(main|viins)/-- INSERT --}"
-    RPS2=$RPS1
-    zle reset-prompt
-}
-zle -N zle-line-init
-zle -N zle-keymap-select
 
 # Histfile
 HISTFILE="$XDG_DATA_HOME"/.zhistory

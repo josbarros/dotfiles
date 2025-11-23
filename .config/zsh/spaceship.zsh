@@ -4,16 +4,11 @@ SPACESHIP_USER_SHOW=always
 # Do not truncate path in repos
 SPACESHIP_DIR_TRUNC_REPO=false
 
+# Debugging stuck modules
 SPACESHIP_ASYNC_SHOW_COUNT=true
 
-# Add custom Ember section
-# See: https://github.com/spaceship-prompt/spaceship-ember
-#spaceship add ember
-
-# Add a custom vi-mode section to the prompt
-# See: https://github.com/spaceship-prompt/spaceship-vi-mode
-#spaceship add --before char vi_mode
-#spaceship add --after line_sep vi_mode
+# Vi mode icon does not work without this
+spaceship_vi_mode_enable
 
 SPACESHIP_PROMPT_ORDER=(
   time           # Time stamps section
@@ -37,6 +32,7 @@ SPACESHIP_PROMPT_ORDER=(
   # terraform      # Terraform workspace section
   exec_time      # Execution time
   async          # Async jobs indicator
+  vi_mode        # Vi mode
   line_sep       # Line break
   jobs           # Background jobs indicator
   exit_code      # Exit code section
