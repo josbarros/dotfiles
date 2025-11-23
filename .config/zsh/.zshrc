@@ -10,7 +10,8 @@ zinit light-mode for \
     zdharma-continuum/zinit-annex-rust
 
 # More Zinit plugins
-zinit light spaceship-prompt/spaceship-prompt
+zinit light "spaceship-prompt/spaceship-vi-mode"
+zinit light "spaceship-prompt/spaceship-prompt"
 zinit load "zsh-users/zsh-history-substring-search"
 zinit light "zsh-users/zsh-autosuggestions"
 zinit light "zsh-users/zsh-syntax-highlighting"

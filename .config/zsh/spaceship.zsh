@@ -13,14 +13,15 @@ SPACESHIP_ASYNC_SHOW_COUNT=true
 # Add a custom vi-mode section to the prompt
 # See: https://github.com/spaceship-prompt/spaceship-vi-mode
 #spaceship add --before char vi_mode
+#spaceship add --after line_sep vi_mode
 
 SPACESHIP_PROMPT_ORDER=(
   time           # Time stamps section
   user           # Username section
   dir            # Current directory section
   host           # Hostname section
-  # git            # Git section (git_branch + git_status)
-  #package        # Package version
+ #  git            # Git section (git_branch + git_status)
+  package        # Package version
   #node           # Node.js section
   # python         # Python section
   # golang         # Go section
