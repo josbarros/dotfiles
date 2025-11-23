@@ -44,7 +44,7 @@ export SPACESHIP_CONFIG="$ZDOTDIR/spaceship.zsh"
 # Dev crap
 export GRADLE_USER_HOME="$XDG_DATA_HOME"/gradle
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME"/npm/npmrc
-export NVM_DIR="$XDG_CONFIG_HOME"/nvm
+export NVM_DIR="$XDG_DATA_HOME"/nvm
 export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
 export SDKMAN_DIR="$XDG_DATA_HOME"/sdkman
 export PYTHONSTARTUP="$XDG_CONFIG_HOME"/pythonstartup.py
