@@ -1,13 +1,13 @@
 #!/bin/sh
 
-# Add steam and vscode dnf repos
+# Add steam and vscode dnf repos, needs to be before the dnf upgrade call
 sudo dnf config-manager setopt rpmfusion-nonfree-steam.enabled=1 # steam repo
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\nautorefresh=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null
 
 # Install everything dnf
 sudo dnf upgrade --refresh -y
-sudo dnf install -y gnome-tweaks gnome-extensions-app ranger alacritty gnupg2-scdaemon nextcloud-client calibre steam code
+sudo dnf install -y gnome-tweaks gnome-extensions-app ranger alacritty nextcloud-client calibre steam code
 
 # Set base dirs to english 
 rm -f "$XDG_CONFIG_HOME/user-dirs.dirs"
@@ -33,11 +33,10 @@ sudo flatpak remote-modify --enable flathub
 sudo flatpak update -y
 flatpak install -y flathub org.signal.Signal com.discordapp.Discord com.yubico.yubioath io.ente.photos com.brave.Browser com.bitwarden.desktop
 
-# Install Betterbird --- TODO Rever esta merda
-sudo dnf remove -y opensc
+# Install Betterbird 
+sudo dnf remove -y opensc # gpg scdaemon wants full access so we remove this
+sudo dnf install -y gnupg2-scdaemon 
 flatpak install -y flathub eu.betterbird.Betterbird
 flatpak override --user --filesystem="$GNUPGHOME" eu.betterbird.Betterbird 
-sudo systemctl enable pcscd.socket pcscd.service 
-sudo systemctl start pcscd.socket pcscd.service 
 gpg --import "$XDG_DATA_HOME/public.asc"
 
