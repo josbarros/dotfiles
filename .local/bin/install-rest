@@ -10,9 +10,9 @@ sudo dnf upgrade --refresh -y
 sudo dnf install -y gnome-tweaks gnome-extensions-app ranger alacritty gnupg2-scdaemon nextcloud-client calibre steam code
 
 # Set base dirs to english 
-echo 'en_US' > "$XDG_CONFIG_HOME/user-dirs.locale"
 rm -f "$XDG_CONFIG_HOME/user-dirs.dirs"
 LANG=en_US.UTF-8 xdg-user-dirs-update 
+echo 'pt_PT' > "$XDG_CONFIG_HOME/user-dirs.locale" # Avoid annoying popup at boot
 
 # Configure Zsh
 ZINIT_HOME="$XDG_DATA_HOME/zinit"
