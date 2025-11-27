@@ -31,7 +31,7 @@ nvm install --lts
 # Install everything flathub
 sudo flatpak remote-modify --enable flathub
 sudo flatpak update -y
-flatpak install -y flathub org.signal.Signal com.discordapp.Discord com.yubico.yubioath io.ente.photos com.brave.Browser com.bitwarden.desktop
+flatpak install -y flathub org.signal.Signal com.discordapp.Discord com.yubico.yubioath io.ente.photos com.brave.Browser com.bitwarden.desktop com.ktechpit.whatsie
 
 # Install Betterbird 
 sudo dnf remove -y opensc # gpg scdaemon wants full access so we remove this
