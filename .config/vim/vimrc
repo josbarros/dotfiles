@@ -5,9 +5,6 @@ set viminfo+=n$XDG_CACHE_HOME/vim/viminfo
 set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_CONFIG_HOME/vim/after,$VIM,$VIMRUNTIME
 let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
 
-" Colors e tal
-colorscheme ron
-
 " Set hybrid line numbers
 set number relativenumber
 
@@ -23,12 +20,6 @@ autocmd FileType markdown setlocal spell spelllang=en_gb
 " Sane copy paste
 vnoremap p "_dP
 
-" PDF viewer for Latex Preview
-" let g:livepreview_previewer = $PDFVIEWER
-
-" Browser for Markdown Preview
-" let g:mkdp_browser = $BROWSER
-
 " Specify a directory for plugins
 " - For Neovim: stdpath('data') . '/plugged'
 " - Avoid using standard Vim directory names like 'plugin'
@@ -36,12 +27,15 @@ call plug#begin('$XDG_CONFIG_HOME/vim/plugged')
 
 " If you have nodejs and yarn
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+" let g:mkdp_browser = $BROWSER
 
 " A Vim Plugin for Lively Previewing LaTeX PDF Output
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+" let g:livepreview_previewer = $PDFVIEWER
 
 " A plugin to force window transparency
 Plug 'tribela/vim-transparent'
 
 " Initialize plugin system
 call plug#end()
+
