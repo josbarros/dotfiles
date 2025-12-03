@@ -1,0 +1,4 @@
+background-opacity = 0.8
+font-size = 20
+theme = light:Rose Pine Dawn,dark:Rose Pine
+term = xterm-kitty

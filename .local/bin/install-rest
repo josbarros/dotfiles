@@ -4,10 +4,11 @@
 sudo dnf config-manager setopt rpmfusion-nonfree-steam.enabled=1 # steam repo
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\nautorefresh=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null
+sudo dnf copr enable scottames/ghostty -y > /dev/null 2>&1
 
 # Install everything dnf
 sudo dnf upgrade --refresh -y
-sudo dnf install -y gnome-tweaks gnome-extensions-app ranger alacritty nextcloud-client calibre steam code trash-cli
+sudo dnf install -y gnome-tweaks gnome-extensions-app ranger ghostty nextcloud-client calibre steam code trash-cli kitty-terminfo
 
 # Set base dirs to english 
 rm -f "$XDG_CONFIG_HOME/user-dirs.dirs"
@@ -16,7 +17,7 @@ echo 'pt_PT' > "$XDG_CONFIG_HOME/user-dirs.locale" # Avoid annoying popup at boo
 
 # Configure Zsh
 ZINIT_HOME="$XDG_DATA_HOME/zinit"
-bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"
+bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)" > /dev/null
 # zsh -c 'zinit self-update'
 
 # Configure Vim
@@ -24,7 +25,7 @@ curl -fLo "$XDG_CONFIG_HOME/vim/autoload/plug.vim" --create-dirs https://raw.git
 mkdir -p "$XDG_CACHE_HOME/vim/swap" "$XDG_CACHE_HOME/vim/backup"
 
 # Install nvm
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash > /dev/null
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 nvm install --lts
 
