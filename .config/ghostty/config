@@ -1,4 +1,4 @@
 background-opacity = 0.8
 font-size = 20
-theme = light:Rose Pine Dawn,dark:Rose Pine
+theme = dark:Catppuccin Frappe,light:Catppuccin Latte
 term = xterm-kitty
