@@ -7,7 +7,7 @@ echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com
 
 # Install everything dnf
 sudo dnf upgrade --refresh -y
-sudo dnf install -y gnome-tweaks gnome-extensions-app ranger alacritty nextcloud-client calibre steam code
+sudo dnf install -y gnome-tweaks gnome-extensions-app ranger alacritty nextcloud-client calibre steam code trash-cli
 
 # Set base dirs to english 
 rm -f "$XDG_CONFIG_HOME/user-dirs.dirs"
