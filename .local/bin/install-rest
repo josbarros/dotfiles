@@ -33,6 +33,10 @@ nvm install --lts
 pipx install git+https://github.com/ranger/ranger.git
 pipx inject ranger-fm pillow
 
+# Install gnome extensions - marcs14 is the power manager
+pipx install gnome-extensions-cli
+gext install accent-directories@taiwbi.com appindicatorsupport@rgcjonas.gmail.com auto-accent-colour@Wartybix drive-menu@gnome-shell-extensions.gcampax.github.com marcs14@gmail.com
+
 # Install everything flathub
 sudo flatpak remote-modify --enable flathub
 sudo flatpak update -y
