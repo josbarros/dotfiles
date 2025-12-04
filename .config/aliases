@@ -15,7 +15,6 @@ else
 fi    
 
 # Linux specific aliases
-alias xcritty='WAYLAND_DISPLAY= alacritty'
 alias geject='gio mount -e'
 
 # Yarn is a mess

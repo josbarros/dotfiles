@@ -8,7 +8,7 @@ sudo dnf copr enable scottames/ghostty -y > /dev/null 2>&1
 
 # Install everything dnf
 sudo dnf upgrade --refresh -y
-sudo dnf install -y gnome-tweaks gnome-extensions-app ranger ghostty nextcloud-client calibre steam code trash-cli kitty-terminfo
+sudo dnf install -y gnome-tweaks gnome-extensions-app ghostty nextcloud-client calibre steam code trash-cli kitty-terminfo pipx
 
 # Set base dirs to english 
 rm -f "$XDG_CONFIG_HOME/user-dirs.dirs"
@@ -28,6 +28,10 @@ mkdir -p "$XDG_CACHE_HOME/vim/swap" "$XDG_CACHE_HOME/vim/backup"
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash > /dev/null
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 nvm install --lts
+
+# Install ranger - to use the most recent version since the latest release has too many bugs
+pipx install git+https://github.com/ranger/ranger.git
+pipx inject ranger-fm pillow
 
 # Install everything flathub
 sudo flatpak remote-modify --enable flathub
