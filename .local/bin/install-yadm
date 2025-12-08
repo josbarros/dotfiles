@@ -1,6 +1,8 @@
 #!/bin/sh
 
-# Start
+# Start - add repo before the initial dnf upgrade
+sudo dnf config-manager addrepo --from-repofile=https://download.opensuse.org/repositories/home:TheLocehiliosan:yadm/Fedora_42/home:TheLocehiliosan:yadm.repo 2>/dev/null
+
 sudo dnf upgrade -y --refresh
 
 # Configure Zsh
@@ -15,8 +17,6 @@ else
 fi
 
 # Install yadm
-sudo dnf config-manager addrepo --from-repofile=https://download.opensuse.org/repositories/home:TheLocehiliosan:yadm/Fedora_42/home:TheLocehiliosan:yadm.repo
-sudo dnf makecache --refresh
 sudo dnf install -y yadm
 
 # Add ssh keys
