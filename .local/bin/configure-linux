@@ -21,4 +21,10 @@ sudo dnf install -y gnome-tweaks gnome-extensions-app pipx
 pipx install gnome-extensions-cli
 gext install accent-directories@taiwbi.com appindicatorsupport@rgcjonas.gmail.com auto-accent-colour@Wartybix drive-menu@gnome-shell-extensions.gcampax.github.com marcs14@gmail.com
 
-# TODO Configure gnome settings
+# Configure gnome settings
+
+# Move window buttons to the left, like MacOS
+dconf write /org/gnome/desktop/wm/preferences/button-layout "'close:appmenu'"
+
+# Swap esc and tab - this resets all other keyboard settings, careful!
+dconf write /org/gnome/desktop/input-sources/xkb-options "['caps:swapescape']"
