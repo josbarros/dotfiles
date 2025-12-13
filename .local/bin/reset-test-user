@@ -1,0 +1,15 @@
+#!/bin/sh
+
+TEST_USER="teste"
+
+read -rp "Type the username '$TEST_USER' to confirm: " CONFIRM
+
+if [[ "$CONFIRM" != "$TEST_USER" ]]; then
+  echo "Confirmation failed. Aborting."
+  exit 1
+fi
+
+sudo userdel -r "$TEST_USER"
+sudo useradd -m "$TEST_USER"
+sudo usermod -aG wheel "$TEST_USER"
+sudo passwd "$TEST_USER"
