@@ -35,3 +35,6 @@
 	path = local
 [push]
 	autoSetupRemote = true
+[user]
+	email = joserui@joseruibarros.com
+	name = José Rui Barros
