@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=GPG Connect Agent
+Comment=Run gpg-connect-agent at GNOME login
+Exec=gpg-connect-agent /bye
+X-GNOME-Autostart-enabled=true
+NoDisplay=false
+Terminal=false
