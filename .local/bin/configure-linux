@@ -19,7 +19,7 @@ sudo dnf install -y gnome-tweaks gnome-extensions-app pipx
 
 # Install gnome extensions - marcs14 is the power manager
 pipx install gnome-extensions-cli
-gext install accent-directories@taiwbi.com appindicatorsupport@rgcjonas.gmail.com auto-accent-colour@Wartybix drive-menu@gnome-shell-extensions.gcampax.github.com marcs14@gmail.com brightness-governor@inbalboa.github.io
+gext install accent-directories@taiwbi.com appindicatorsupport@rgcjonas.gmail.com auto-accent-colour@Wartybix drive-menu@gnome-shell-extensions.gcampax.github.com marcs14@gmail.com power-switching-manager@joseruibarros.com
 
 # Configure gnome settings
 
