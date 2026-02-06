@@ -20,5 +20,3 @@ alias geject='gio mount -e'
 # Yarn is a mess
 alias yarn="yarn --use-yarnrc $XDG_CONFIG_HOME/yarn/config"
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-[[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
