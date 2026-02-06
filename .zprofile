@@ -1,8 +1,15 @@
+# XDG
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/state"
+
 # Add stuff to $PATH
 export PATH="/opt/homebrew/bin:$PATH"
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
-export PATH="$PATH:$HOME/.config/yarn/bin:$HOME/.config/yarn/global/node_modules/.bin"
+export PATH="$PATH:$XDG_DATA_HOME/JetBrains/Toolbox/scripts"
+export PATH="$PATH:$XDG_CONFIG_HOME/yarn/bin:$XDG_CONFIG_HOME/yarn/global/node_modules/.bin"
 
 # Set Homebrew variables
 # todo docs.brew.sh/installation
@@ -29,12 +36,6 @@ export SNAP="/run/media/rui/8b9842f5-de26-4e41-90a5-8759a5cf1f3f/backintime"
 export LAST="$SNAP/last_snapshot"
 
 # XDG Stuff cleanup
-
-# XDG
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_CACHE_HOME="$HOME/.cache"
-export XDG_DATA_HOME="$HOME/.local/share"
-export XDG_STATE_HOME="$HOME/.local/state"
 
 # ZSH
 export ZDOTDIR="$XDG_CONFIG_HOME"/zsh

@@ -42,6 +42,9 @@ HISTSIZE=10000
 SAVEHIST=10000
 setopt INC_APPEND_HISTORY_TIME
 
+# Mise
+eval "$(mise activate zsh)"
+
 # Load aliases - this must be at the end
 source "$XDG_CONFIG_HOME/aliases"
 
