@@ -1,15 +1,21 @@
 #!/bin/sh
 
-# Start - add repo before the initial dnf upgrade
-sudo dnf config-manager addrepo --from-repofile=https://download.opensuse.org/repositories/home:TheLocehiliosan:yadm/Fedora_42/home:TheLocehiliosan:yadm.repo 2>/dev/null
+# Start - determine package manager
+if [ -d /etc/dnf/ ]; then PCKMNG="dnf"
+elif [ -d /etc/apt/ ]; then PCKMNG="apt"
+fi
 
-sudo dnf upgrade -y --refresh
+# Start - add repo before the initial dnf upgrade
+if [ "$PCKMNG" = "dnf" ]; then
+	sudo dnf config-manager addrepo --from-repofile=https://download.opensuse.org/repositories/home:TheLocehiliosan:yadm/Fedora_42/home:TheLocehiliosan:yadm.repo 2>/dev/null
+	sudo dnf upgrade -y --refresh
+fi
 
 # Configure Zsh
-sudo dnf install -y zsh
+sudo "$PCKMNG" install -y zsh
 
 if [ "$SHELL" != "$(which zsh)" ]; then
-  chsh -s $(which zsh)
+  chsh -s "$(which zsh)"
   echo "Shell changed to zsh."
   rm -f ~/.z* # remove the stuff that will be pulled from git
 else
@@ -17,7 +23,7 @@ else
 fi
 
 # Install yadm
-sudo dnf install -y yadm
+sudo "$PCKMNG" install -y yadm
 
 # Add ssh keys
 SSH_DIR="$HOME/.ssh"
@@ -40,6 +46,6 @@ yadm gitconfig user.email "joserui@joseruibarros.com"
 yadm gitconfig user.name "José Rui Barros"
 
 # Finish off
-rm -rf ~/.gnupg ~/.bash*
+rm -rf ~/.gnupg ~/.bash* ~/.profile
 echo "Please log off now."
 
