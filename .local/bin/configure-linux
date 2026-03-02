@@ -35,17 +35,18 @@ gext install accent-directories@taiwbi.com appindicatorsupport@rgcjonas.gmail.co
 # Configure gnome settings
 
 # Move window buttons to the left, like MacOS
-dconf write /org/gnome/desktop/wm/preferences/button-layout "'close:appmenu'"
+gsettings set org.gnome.desktop.wm.preferences button-layout "close:appmenu"
 
 # Swap esc and caps, right ctrl as compose key - this resets all other keyboard settings, careful!
-dconf write /org/gnome/desktop/input-sources/xkb-options "['caps:swapescape','compose:rctrl']"
+gsettings set org.gnome.desktop.input-sources xkb-options "['caps:swapescape','compose:rctrl']"
 
 # Set location and night light
-dconf write /org/gnome/system/location/enabled true
-dconf write /org/gnome/settings-daemon/plugins/color/night-light-enabled true
-dconf write /org/gnome/settings-daemon/plugins/color/night-light-schedule-automatic true
+gsettings set org.gnome.system.location enabled true
+gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true
+gsettings set org.gnome.settings-daemon.plugins.color night-light-schedule-automatic true
 
 # Set automatic date time and time zone
+# TODO add automatic date and time
 gsettings set org.gnome.desktop.datetime automatic-timezone true
 
 # Show battery percentage
