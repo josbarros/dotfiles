@@ -1,21 +1,32 @@
 #!/bin/sh
 
+# Start - determine package manager
+if [ -d /etc/dnf/ ]; then PCKMNG="dnf"
+elif [ -d /etc/apt/ ]; then PCKMNG="apt"
+fi
+
 # Begin
-sudo dnf upgrade --refresh -y
+if [ "$PCKMNG" = "dnf" ]; then dnf check-update
+elif [ "$PCKMNG" = "apt" ]; then sudo apt update
+fi
+sudo "$PCKMNG" upgrade -y
 
 # Install tlp
-sudo dnf install -y tlp tlp-rdw
-sudo dnf remove -y tuned tuned-ppd
-sudo systemctl enable tlp.service
-sudo systemctl mask systemd-rfkill.service systemd-rfkill.socket
+sudo "$PCKMNG" install -y tlp tlp-rdw
+sudo "$PCKMNG" remove -y tuned tuned-ppd
+
+if ps -p 1 | grep -q "systemd"; then
+	sudo systemctl enable tlp.service
+	sudo systemctl mask systemd-rfkill.service systemd-rfkill.socket
+fi
 
 # Install powertop
-sudo dnf install -y powertop
+sudo "$PCKMNG" install -y powertop
 # TODO Ver maneira de ja esta calibrado ou nao, ou se isso e' sequer preciso
 # sudo powertop -c # calibrate
 
 # Install gnome tools + pipx
-sudo dnf install -y gnome-tweaks gnome-extensions-app pipx
+sudo "$PCKMNG" install -y gnome-tweaks gnome-extensions-app pipx
 
 # Install gnome extensions - marcs14 is the power manager
 pipx install gnome-extensions-cli
@@ -33,3 +44,9 @@ dconf write /org/gnome/desktop/input-sources/xkb-options "['caps:swapescape','co
 dconf write /org/gnome/system/location/enabled true
 dconf write /org/gnome/settings-daemon/plugins/color/night-light-enabled true
 dconf write /org/gnome/settings-daemon/plugins/color/night-light-schedule-automatic true
+
+# Set automatic date time and time zone
+gsettings set org.gnome.desktop.datetime automatic-timezone true
+
+# Show battery percentage
+gsettings set org.gnome.desktop.interface show-battery-percentage true
