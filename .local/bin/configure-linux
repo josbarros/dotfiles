@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Begin
-pkg-update
+pkg-update 2> /dev/null
 
 # Set base dirs to english 
 rm -f "$XDG_CONFIG_HOME/user-dirs.dirs"
@@ -13,8 +13,8 @@ sudo "$PCKMNG" install -y tlp tlp-rdw
 sudo "$PCKMNG" remove -y tuned tuned-ppd
 
 if ps -p 1 | grep -q "systemd"; then
-	sudo systemctl enable tlp.service
-	sudo systemctl mask systemd-rfkill.service systemd-rfkill.socket
+    sudo systemctl enable tlp.service
+    sudo systemctl mask systemd-rfkill.service systemd-rfkill.socket
 fi
 
 # Install powertop
@@ -26,7 +26,7 @@ sudo "$PCKMNG" install -y powertop
 sudo "$PCKMNG" install -y gnome-tweaks gnome-extensions-app pipx
 
 # Install gnome extensions - marcs14 is the power manager
-pipx install gnome-extensions-cli
+pipx install gnome-extensions-cli > /dev/null
 gext install accent-directories@taiwbi.com appindicatorsupport@rgcjonas.gmail.com auto-accent-colour@Wartybix drive-menu@gnome-shell-extensions.gcampax.github.com marcs14@gmail.com power-switching-manager@joseruibarros.com
 
 # Configure gnome settings
