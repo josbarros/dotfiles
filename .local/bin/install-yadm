@@ -6,17 +6,6 @@ if [ "$PCKMNG" = "dnf" ]; then
 fi
 pkg-update
 
-# Configure Zsh
-sudo "$PCKMNG" install -y zsh
-
-if [ "$SHELL" != "$(which zsh)" ]; then
-  chsh -s "$(which zsh)"
-  echo "Shell changed to zsh."
-  rm -f ~/.z* # remove the stuff that will be pulled from git
-else
-  echo "You are already using zsh."
-fi
-
 # Install yadm
 sudo "$PCKMNG" install -y yadm
 
@@ -41,6 +30,6 @@ yadm gitconfig user.email "joserui@joseruibarros.com"
 yadm gitconfig user.name "José Rui Barros"
 
 # Finish off
-rm -rf ~/.gnupg ~/.bash* ~/.profile
+rm -rf ~/.gnupg
 echo "Please log off now."
 
