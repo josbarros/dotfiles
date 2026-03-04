@@ -1,15 +1,7 @@
 #!/bin/sh
 
-# Start - determine package manager
-if [ -d /etc/dnf/ ]; then PCKMNG="dnf"
-elif [ -d /etc/apt/ ]; then PCKMNG="apt"
-fi
-
 # Begin
-if [ "$PCKMNG" = "dnf" ]; then dnf check-update
-elif [ "$PCKMNG" = "apt" ]; then sudo apt update
-fi
-sudo "$PCKMNG" upgrade -y
+pkg-update
 
 # Install tlp
 sudo "$PCKMNG" install -y tlp tlp-rdw

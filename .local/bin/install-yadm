@@ -1,18 +1,10 @@
 #!/bin/sh
 
-# Start - determine package manager
-if [ -d /etc/dnf/ ]; then PCKMNG="dnf"
-elif [ -d /etc/apt/ ]; then PCKMNG="apt"
-fi
-
-# Add repo before the initial dnf upgrade and upgrade
+# Add yadm repo before upgrading
 if [ "$PCKMNG" = "dnf" ]; then
 	sudo dnf config-manager addrepo --from-repofile=https://download.opensuse.org/repositories/home:TheLocehiliosan:yadm/Fedora_42/home:TheLocehiliosan:yadm.repo 2>/dev/null
-	dnf check-update
-elif [ "$PCKMNG" = "apt" ]; then
-	sudo apt update
 fi
-sudo "$PCKMNG" upgrade -y
+pkg-update
 
 # Configure Zsh
 sudo "$PCKMNG" install -y zsh

@@ -1,0 +1,6 @@
+#!/bin/sh
+
+if [ "$PCKMNG" = "dnf" ]; then dnf check-update
+elif [ "$PCKMNG" = "apt" ]; then sudo apt update
+fi
+sudo "$PCKMNG" upgrade -y

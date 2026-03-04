@@ -50,3 +50,9 @@ export CUDA_CACHE_PATH="$XDG_CACHE_HOME"/nv
 export TERMINFO="$XDG_DATA_HOME"/terminfo
 export TERMINFO_DIRS="$XDG_DATA_HOME"/terminfo:/usr/share/terminfo
 export W3M_DIR="$XDG_STATE_HOME/w3m"
+
+# Package manager
+if [ -d /etc/dnf/ ]; then export PCKMNG="dnf"
+elif [ -d /etc/apt/ ]; then export PCKMNG="apt"
+fi
+
