@@ -3,6 +3,11 @@
 # Begin
 pkg-update
 
+# Set base dirs to english 
+rm -f "$XDG_CONFIG_HOME/user-dirs.dirs"
+LANG=en_US.UTF-8 xdg-user-dirs-update 
+echo 'pt_PT' > "$XDG_CONFIG_HOME/user-dirs.locale" # Avoid annoying popup at boot
+
 # Install tlp
 sudo "$PCKMNG" install -y tlp tlp-rdw
 sudo "$PCKMNG" remove -y tuned tuned-ppd

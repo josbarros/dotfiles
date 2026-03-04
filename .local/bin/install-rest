@@ -10,11 +10,6 @@ sudo dnf upgrade --refresh -y
 # Install everything dnf
 sudo dnf install -y nextcloud-client calibre steam code
 
-# Set base dirs to english 
-rm -f "$XDG_CONFIG_HOME/user-dirs.dirs"
-LANG=en_US.UTF-8 xdg-user-dirs-update 
-echo 'pt_PT' > "$XDG_CONFIG_HOME/user-dirs.locale" # Avoid annoying popup at boot
-
 # Prepare flathub
 sudo flatpak remote-modify --enable flathub
 sudo flatpak update -y
