@@ -42,7 +42,7 @@ mkdir -p "$XDG_CACHE_HOME/vim/swap" "$XDG_CACHE_HOME/vim/backup"
 # Mise
 sudo "$PCKMNG" install -y mise 2> /dev/null
 mise use --global node@lts > /dev/null
-npm install -g @github/copilot
+npm install -g @openai/codex
 mise use --global java@21 > /dev/null
 
 # Install ranger - to use the most recent version since the latest release has too many bugs
