@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
 Name=PipeWire
-Exec=bash -c 'grep -q "ID=devuan" /etc/os-release && /usr/bin/pipewire & /usr/bin/wireplumber & /usr/bin/pipewire-pulse &'
+Exec=bash -c 'grep -q "ID=devuan" /etc/os-release && { /usr/bin/pipewire & /usr/bin/wireplumber & /usr/bin/pipewire-pulse & }'
 NoDisplay=true
 X-GNOME-Autostart-enabled=true
