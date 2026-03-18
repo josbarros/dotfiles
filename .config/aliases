@@ -5,6 +5,8 @@ alias mkd='mkdir -pv'
 alias df='df -h'
 alias grep='grep --color=auto'
 alias ccat='highlight'
+alias g='git'
+alias y='yadm'
 if [ $(uname -s) = "Darwin" ]; then
     alias rm='grm -vI'
     alias ls='gls -hNv --color=auto --group-directories-first'

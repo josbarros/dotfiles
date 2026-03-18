@@ -27,6 +27,7 @@
 	# others
 	st = status
 	di = diff
+	a = add
 [pull]
 	rebase = true
 [credential]
