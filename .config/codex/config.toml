@@ -1,0 +1,9 @@
+model = "gpt-5.4"
+model_reasoning_effort = "medium"
+personality = "friendly"
+sandbox_mode = "read-only"
+approval_policy = "untrusted"
+
+[profiles.dev]
+sandbox_mode = "workspace-write"
+
