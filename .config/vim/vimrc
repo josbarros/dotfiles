@@ -31,7 +31,7 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 
 " A Vim Plugin for Lively Previewing LaTeX PDF Output
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
-" let g:livepreview_previewer = $PDFVIEWER
+let g:livepreview_previewer = 'papers'
 
 " A plugin to force window transparency
 Plug 'tribela/vim-transparent'
