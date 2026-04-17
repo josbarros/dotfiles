@@ -1,13 +1,22 @@
 #!/bin/sh
 
 # Add yadm repo before upgrading
-if [ "$PCKMNG" = "dnf" ]; then
+if [ -d /etc/dnf/ ]; then
     sudo dnf config-manager addrepo --from-repofile=https://download.opensuse.org/repositories/home:TheLocehiliosan:yadm/Fedora_42/home:TheLocehiliosan:yadm.repo 2> /dev/null
+    dnf check-update 2> /dev/null
+    sudo dnf install -y yadm 2> /dev/null
+elif [ -d /etc/apt/ ]; then
+    sudo apt update 2> /dev/null
+    sudo apt install -y yadm 2> /dev/null
+else
+    echo "No supported package manager found" >&2
+    exit 1
 fi
-pkg-update 2> /dev/null
 
-# Install yadm
-sudo "$PCKMNG" install -y yadm 2> /dev/null
+if ! command -v yadm > /dev/null 2>&1; then
+    echo "yadm installation failed" >&2
+    exit 1
+fi
 
 # Add ssh keys
 SSH_DIR="$HOME/.ssh"
@@ -38,4 +47,3 @@ fi
 # Finish off
 rm -rf ~/.gnupg
 echo "Succssess! Please log off now to refresh .profile"
-
