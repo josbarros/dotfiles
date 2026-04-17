@@ -39,8 +39,8 @@ gext install accent-directories@taiwbi.com appindicatorsupport@rgcjonas.gmail.co
 # Move window buttons to the left, like MacOS
 gsettings set org.gnome.desktop.wm.preferences button-layout "close:appmenu"
 
-# Swap esc and caps, right ctrl as compose key - this resets all other keyboard settings, careful!
-gsettings set org.gnome.desktop.input-sources xkb-options "['caps:swapescape','compose:rctrl']"
+# Swap esc and caps, right ctrl as compose key, keypad as four-level key with dot - this resets all other keyboard settings, careful!
+gsettings set org.gnome.desktop.input-sources xkb-options "['caps:swapescape','compose:rctrl','kpdl:dotoss']"
 
 # Set location and night light
 gsettings set org.gnome.system.location enabled true
