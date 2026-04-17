@@ -5,7 +5,7 @@ if [ "$PCKMNG" = "dnf" ]; then
     sudo dnf copr enable scottames/ghostty -y > /dev/null 2>&1
     sudo dnf copr enable jdxcode/mise -y > /dev/null 2>&1
 elif [ "$PCKMNG" = "apt" ]; then
-    sudo apt install -y curl
+    sudo apt install -y curl > /dev/null 2>&1
     # Ghostty
     curl -sS https://debian.griffo.io/EA0F721D231FDD3A0A17B9AC7808B4DD62C41256.asc | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/debian.griffo.io.gpg
     echo "deb https://debian.griffo.io/apt trixie -sc 2>/dev/null) main" | sudo tee /etc/apt/sources.list.d/debian.griffo.io.list
@@ -16,13 +16,13 @@ elif [ "$PCKMNG" = "apt" ]; then
 fi
 
 # Begin
-pkg-update 2> /dev/null
+pkg-update > /dev/null 2>&1
 
 # Install general terminal tools 
 sudo "$PCKMNG" install -y ghostty kitty-terminfo vim latexmk fastfetch highlight
 
 # Install Zsh and set as default shell
-sudo "$PCKMNG" install -y zsh 2> /dev/null
+sudo "$PCKMNG" install -y zsh > /dev/null 2>&1
 
 if [ "$SHELL" != "$(which zsh)" ]; then
   chsh -s "$(which zsh)"
@@ -41,7 +41,7 @@ curl -fLo "$XDG_CONFIG_HOME/vim/autoload/plug.vim" --create-dirs https://raw.git
 mkdir -p "$XDG_CACHE_HOME/vim/swap" "$XDG_CACHE_HOME/vim/backup"
 
 # Mise
-sudo "$PCKMNG" install -y mise 2> /dev/null
+sudo "$PCKMNG" install -y mise > /dev/null 2>&1
 mise use --global node@lts > /dev/null
 npm install -g @openai/codex
 mise use --global java@21 > /dev/null

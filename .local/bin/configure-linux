@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Begin
-pkg-update 2> /dev/null
+pkg-update > /dev/null 2>&1
 
 # Set base dirs to english 
 rm -f "$XDG_CONFIG_HOME/user-dirs.dirs"
