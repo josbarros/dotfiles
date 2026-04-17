@@ -19,7 +19,7 @@ fi
 pkg-update 2> /dev/null
 
 # Install general terminal tools 
-sudo "$PCKMNG" install -y ghostty kitty-terminfo vim latexmk pdflatex fastfetch
+sudo "$PCKMNG" install -y ghostty kitty-terminfo vim latexmk fastfetch highlight
 
 # Install Zsh and set as default shell
 sudo "$PCKMNG" install -y zsh 2> /dev/null
