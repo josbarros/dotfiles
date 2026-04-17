@@ -25,7 +25,7 @@ sudo "$PCKMNG" install -y ghostty kitty-terminfo vim latexmk fastfetch highlight
 sudo "$PCKMNG" install -y zsh > /dev/null 2>&1
 
 if [ "$SHELL" != "$(which zsh)" ]; then
-  chsh -s "$(which zsh)"
+  sudo chsh -s "$(which zsh)" "$USER"
 else
   echo "You are already using zsh."
 fi
