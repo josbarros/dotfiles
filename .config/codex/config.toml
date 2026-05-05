@@ -1,4 +1,4 @@
-model = "gpt-5.4"
+model = "gpt-5.5"
 model_reasoning_effort = "medium"
 personality = "friendly"
 sandbox_mode = "read-only"
@@ -6,4 +6,7 @@ approval_policy = "untrusted"
 
 [profiles.dev]
 sandbox_mode = "workspace-write"
+
+[tui]
+status_line = ["model-with-reasoning", "current-dir", "context-remaining", "context-window-size", "five-hour-limit", "weekly-limit", "fast-mode"]
 
