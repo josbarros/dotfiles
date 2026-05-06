@@ -13,7 +13,7 @@ sudo "$PCKMNG" install -y tlp tlp-rdw
 sudo "$PCKMNG" remove -y tuned tuned-ppd
 
 if ps -p 1 | grep -q "systemd"; then
-    sudo systemctl enable tlp.service
+    sudo systemctl enable tlp.service tlp-pd.service
     sudo systemctl mask systemd-rfkill.service systemd-rfkill.socket
 fi
 
