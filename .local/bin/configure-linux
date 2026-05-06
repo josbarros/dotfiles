@@ -28,7 +28,7 @@ if [ "$PCKMNG" = "apt" ]; then
 fi
 
 # Install gnome tools + pipx
-sudo "$PCKMNG" install -y gnome-tweaks gnome-extensions-app pipx
+sudo "$PCKMNG" install -y gnome-tweaks gnome-extensions-app pipx mutter-devkit
 
 # Install gnome extensions - marcs14 is the power manager
 pipx install gnome-extensions-cli > /dev/null
