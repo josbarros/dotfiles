@@ -3,13 +3,16 @@
 # Begin
 pkg-update > /dev/null 2>&1
 
+# Load the scroll wheel hack
+sudo ln -s "$HOME/.local/bin/99-wheel-scroll-factor.lua" /etc/libinput/plugins/99-wheel-scroll-factor.lua 2> /dev/null
+
 # Set base dirs to english 
 rm -f "$XDG_CONFIG_HOME/user-dirs.dirs"
 LANG=en_US.UTF-8 xdg-user-dirs-update 
 echo 'pt_PT' > "$XDG_CONFIG_HOME/user-dirs.locale" # Avoid annoying popup at boot
 
 # Install tlp
-sudo "$PCKMNG" install -y tlp tlp-rdw
+sudo "$PCKMNG" install -y tlp tlp-rdw tlp-pd
 sudo "$PCKMNG" remove -y tuned tuned-ppd
 
 if ps -p 1 | grep -q "systemd"; then
