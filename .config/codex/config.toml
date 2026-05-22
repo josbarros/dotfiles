@@ -9,4 +9,5 @@ sandbox_mode = "workspace-write"
 
 [tui]
 status_line = ["model-with-reasoning", "current-dir", "context-remaining", "context-window-size", "five-hour-limit", "weekly-limit", "fast-mode"]
+session_picker_view = "comfortable"
 
