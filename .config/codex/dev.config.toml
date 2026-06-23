@@ -1,0 +1,7 @@
+sandbox_mode = "workspace-write"
+
+[sandbox_workspace_write]
+network_access = true
+writable_roots = [
+  "/home/rui/.local/share/gradle"
+]
