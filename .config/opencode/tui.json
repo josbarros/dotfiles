@@ -1,4 +1,7 @@
 {
+  "plugin": [
+    "/home/rui/.local/share/mise/installs/node/24.13.0/lib/node_modules/opencode-codex-usage"
+  ],
   "$schema": "https://opencode.ai/tui.json",
   "theme": "system"
 }
