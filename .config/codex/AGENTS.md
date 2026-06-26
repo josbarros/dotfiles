@@ -17,8 +17,8 @@ Repo-local `AGENTS.md` files, repo docs, and existing build/test configs always 
 - Each story must cover one user-visible outcome, or one tiny technical-enabling step that directly supports that outcome.
 - Do not combine multiple outcomes, phases, or implementation tasks into a single story.
 - Include short, observable acceptance criteria for each story.
-- When an E2E framework is present, wire the E2E path before implementing any user-facing story.
-- When an E2E framework is present, user-facing stories must include E2E coverage in their acceptance criteria or implementation tasks.
+- Use the existing E2E path early for stories that change real user flows, so end-to-end coverage is practical before the story is considered complete.
+- When an E2E framework is present, user-facing stories that change a real user flow should include E2E coverage or explicitly justify why a narrower test is sufficient.
 - After finishing a story, ask the user for permission before starting the next story.
 - Pure infrastructure, tooling, and refactor stories are exempt unless they directly change a user-visible flow.
 - Keep the breakdown lightweight and practical rather than turning it into a heavy spec.
