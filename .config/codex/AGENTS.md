@@ -11,6 +11,12 @@ Repo-local `AGENTS.md` files, repo docs, and existing build/test configs always 
 - Use the smallest useful test set first, then widen only when the change or risk justifies it.
 - Ask when the right path is unclear or when the impact is genuinely large.
 
+## Planning
+
+- Split non-trivial work into user stories during planning.
+- Include short acceptance criteria for each story.
+- Keep the breakdown lightweight and practical rather than turning it into a heavy spec.
+
 ## Change Control
 
 - Follow existing configurations and repo instructions before personal preference.
@@ -26,4 +32,3 @@ Repo-local `AGENTS.md` files, repo docs, and existing build/test configs always 
 - Avoid adding extra infrastructure unless the repo already uses it or the change clearly needs it.
 - Prefer `EmbeddedMongo` over `Testcontainers` for Mongo-related Java tests by default.
 - Follow the repo's package, naming, and formatting conventions rather than introducing new style rules.
-
