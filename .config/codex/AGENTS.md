@@ -12,7 +12,6 @@ Repo-local `AGENTS.md` files, repo docs, and existing build/test configs always 
 - Ask when the right path is unclear or when the impact is genuinely large.
 
 ## Planning
-
 - Split non-trivial work into the smallest possible user stories during planning.
 - Each story must cover one user-visible outcome, or one tiny technical-enabling step that directly supports that outcome.
 - Do not combine multiple outcomes, phases, or implementation tasks into a single story.
@@ -30,6 +29,7 @@ Repo-local `AGENTS.md` files, repo docs, and existing build/test configs always 
 - Explicit exemptions are docs, config, tooling, exploratory reads, and other non-code edits.
 - If the work cannot be expressed with a meaningful failing test, stop and ask before bypassing TDD.
 - Implement TDD layer by layer: write the failing test for the lowest relevant layer first, then grow upward.
+- When adding tests via TDD, create at most one new test file at a time, and finish its full red-green-refactor cycle before starting the next one.
 - Follow the red-green-refactor cycle: write or update the test, confirm it fails, implement the minimum change, then refactor.
 - For layered work, start from lower layers first so implementation can grow upward cleanly.
 - Keep changes aligned with architectural layers instead of reshaping things model by model unless the repo already does that.
@@ -39,7 +39,6 @@ Repo-local `AGENTS.md` files, repo docs, and existing build/test configs always 
 - Prefer the machine-installed Gradle on this workstation first when working in Java repos, unless the repo clearly requires `./gradlew` or another build flow.
 - Use the repo's own build and test instructions when they exist.
 - Prefer targeted tests before broad suites.
+- Service-layer code should not depend on DTOs.
 - Avoid adding extra infrastructure unless the repo already uses it or the change clearly needs it.
-- Prefer `EmbeddedMongo` for Mongo-related Java tests by default.
-- Use Docker Compose for real E2E tests; do not use `EmbeddedMongo` for E2E coverage.
 - Follow the repo's package, naming, and formatting conventions rather than introducing new style rules.
