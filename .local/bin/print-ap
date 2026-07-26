@@ -1,0 +1,10 @@
+#!/bin/sh
+
+VDF_AP="F8:5E:42:32:6B:78"
+CURR_AP=$(nmcli -f IN-USE,BSSID dev wifi | awk '$1=="*"{print $2}')
+
+if [ "$CURR_AP" = "$VDF_AP" ]; then
+	echo "VODAFONE AP CONNECTION!!!!!"
+else
+	echo "NOT CONNECTED TO VODAFONE AP!!!!"
+fi
