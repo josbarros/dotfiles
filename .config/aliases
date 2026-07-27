@@ -23,4 +23,5 @@ alias geject='gio mount -e'
 alias yarn="yarn --use-yarnrc $XDG_CONFIG_HOME/yarn/config"
 
 # home crap
-alias reset-ap="ssh root@192.168.0.2 'reboot'"
+alias reset_ap="ssh root@192.168.0.2 reboot"
+
