@@ -12,7 +12,10 @@ LANG=en_US.UTF-8 xdg-user-dirs-update
 echo 'pt_PT' > "$XDG_CONFIG_HOME/user-dirs.locale" # Avoid annoying popup at boot
 
 # Install tlp
-sudo "$PCKMNG" install -y tlp tlp-rdw tlp-pd
+sudo "$PCKMNG" install -y tlp tlp-rdw
+if [ "$PCKMNG" = "dnf" ]; then
+    sudo dnf install -y tlp-pd # not available right now on debian
+fi
 sudo "$PCKMNG" remove -y tuned tuned-ppd
 
 if ps -p 1 | grep -q "systemd"; then
@@ -31,7 +34,7 @@ if [ "$PCKMNG" = "apt" ]; then
 fi
 
 # Install gnome tools + pipx
-sudo "$PCKMNG" install -y gnome-tweaks gnome-extensions-app pipx mutter-devkit
+sudo "$PCKMNG" install -y gnome-tweaks gnome-extensions-app pipx
 
 # Install gnome extensions - marcs14 is the power manager
 pipx install gnome-extensions-cli > /dev/null

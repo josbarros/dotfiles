@@ -8,7 +8,7 @@ echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com
 dnf check-update &> /dev/null
 
 # Install everything dnf
-sudo dnf install -y nextcloud-client calibre steam code
+sudo dnf install -y nextcloud-client calibre steam code mutter-devkit
 
 # Prepare flathub
 sudo flatpak remote-modify --enable flathub
