@@ -4,7 +4,7 @@
 pkg-update > /dev/null 2>&1
 
 # Load the scroll wheel hack
-sudo ln -s "$HOME/.local/bin/99-wheel-scroll-factor.lua" /etc/libinput/plugins/99-wheel-scroll-factor.lua 2> /dev/null
+# sudo ln -s "$HOME/.local/bin/99-wheel-scroll-factor.lua" /etc/libinput/plugins/99-wheel-scroll-factor.lua 2> /dev/null
 
 # Set base dirs to english 
 rm -f "$XDG_CONFIG_HOME/user-dirs.dirs"
