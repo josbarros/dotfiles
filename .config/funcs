@@ -1,0 +1,40 @@
+backup () {
+	if [ ! -L "$LAST" || ! -d "$LAST" || ! -d "$SNAP" ] ; then 
+		echo "env LAST or env SNAP is not set!" >&2
+		return 1
+	fi
+	# Basic snapshot-style rsync backup script 
+	# Config
+	OPT="-aPh"
+	LINK="--link-dest=$LAST/"
+	SRC="$HOME/Calibre_Library $HOME/Documents $HOME/Nextcloud $HOME/Pictures"
+	DATE="$SNAP/$(date "+%Y-%b-%d:_%T")"
+	# Run rsync to create snapshot
+	rsync $OPT $LINK $SRC $DATE || return 1
+	# Remove symlink to previous snapshot
+	rm -f "$LAST" || return 1
+	# Create new symlink to latest snapshot for the next backup to hardlink
+	ln -s "$DATE" "$LAST"
+}
+
+restore_backup () {
+	if [ ! -L "$LAST" || ! -d "$LAST" ] ; then 
+		echo "env LAST is not set!" >&2
+		return 1
+	fi
+	rsync -av "$LAST/" "$HOME"
+}
+
+reset_test_user () {
+	TEST_USER="teste"
+	read -rp "Type the username '$TEST_USER' to confirm: " CONFIRM
+	if [[ "$CONFIRM" != "$TEST_USER" ]]; then
+	  echo "Confirmation failed. Aborting."
+	  return 1
+	fi
+	sudo userdel -r "$TEST_USER" || return 1
+	sudo useradd -m "$TEST_USER" || return 1
+	sudo usermod -aG wheel "$TEST_USER" || return 1
+	sudo passwd "$TEST_USER"
+}
+    

@@ -46,6 +46,7 @@ setopt INC_APPEND_HISTORY_TIME
 # Mise
 eval "$(mise activate zsh)"
 
-# Load aliases - this must be at the end
+# Load aliases and functions - this must be at the end
 source "$XDG_CONFIG_HOME/aliases"
+# source "$XDG_CONFIG_HOME/funcs"
 
