@@ -1,11 +1,11 @@
-#!/bin/sh
+#!/bin/bash
 
 # Add steam and vscode dnf repos, needs to be before the dnf upgrade call
 sudo dnf config-manager setopt rpmfusion-nonfree-steam.enabled=1 # steam repo
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\nautorefresh=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null
 
-dnf check-update 2> /dev/null
+dnf check-update &> /dev/null
 
 # Install everything dnf
 sudo dnf install -y nextcloud-client calibre steam code
@@ -15,7 +15,7 @@ sudo flatpak remote-modify --enable flathub
 flatpak update --appstream > /dev/null
 
 # Install everything flathub
-flatpak install -y flathub org.signal.Signal com.discordapp.Discord com.yubico.yubioath io.ente.photos com.brave.Browser com.bitwarden.desktop com.ktechpit.whatsie
+flatpak install -y flathub org.signal.Signal com.discordapp.Discord com.yubico.yubioath io.ente.photos com.brave.Browser com.bitwarden.desktop com.ktechpit.whatsie cc.arduino.IDE2
 
 # Install Betterbird 
 sudo dnf remove -y opensc # gpg-scdaemon wants full access to SC so we remove this

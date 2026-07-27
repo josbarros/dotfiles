@@ -1,19 +1,19 @@
-#!/bin/sh
+#!/bin/bash
 
 # Add yadm repo before upgrading
 if [ -d /etc/dnf/ ]; then
     sudo dnf config-manager addrepo --from-repofile=https://download.opensuse.org/repositories/home:TheLocehiliosan:yadm/Fedora_42/home:TheLocehiliosan:yadm.repo 2> /dev/null
-    dnf check-update 2> /dev/null
+    dnf check-update &> /dev/null
     sudo dnf install -y yadm 2> /dev/null
 elif [ -d /etc/apt/ ]; then
-    sudo apt update > /dev/null 2>&1
-    sudo apt install -y yadm > /dev/null 2>&1
+    sudo apt update &> /dev/null
+    sudo apt install -y yadm &> /dev/null
 else
     echo "No supported package manager found" >&2
     exit 1
 fi
 
-if ! command -v yadm > /dev/null 2>&1; then
+if ! command -v yadm &> /dev/null ; then
     echo "yadm installation failed" >&2
     exit 1
 fi
@@ -23,7 +23,7 @@ SSH_DIR="$HOME/.ssh"
 mkdir -p "$SSH_DIR"
 cd "$SSH_DIR" 
 while true; do
-    if ssh-add -L > /dev/null 2>&1; then
+    if ssh-add -L &> /dev/null ; then
         echo "SSH key(s) are loaded!"
         break
     fi

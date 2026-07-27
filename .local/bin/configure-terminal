@@ -1,28 +1,28 @@
-#!/bin/sh
+#!/bin/bash
 
 # Package manager setup
 if [ "$PCKMNG" = "dnf" ]; then
-    sudo dnf copr enable scottames/ghostty -y > /dev/null 2>&1
-    sudo dnf copr enable jdxcode/mise -y > /dev/null 2>&1
+    sudo dnf copr enable scottames/ghostty -y &> /dev/null
+    sudo dnf copr enable jdxcode/mise -y &> /dev/null
 elif [ "$PCKMNG" = "apt" ]; then
-    sudo apt install -y curl > /dev/null 2>&1
+    sudo apt install -y curl &> /dev/null
     # Ghostty
     curl -sS https://debian.griffo.io/EA0F721D231FDD3A0A17B9AC7808B4DD62C41256.asc | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/debian.griffo.io.gpg
     echo "deb https://debian.griffo.io/apt trixie main" | sudo tee /etc/apt/sources.list.d/debian.griffo.io.list
     # Mise
     sudo install -dm 755 /etc/apt/keyrings
-    curl -fSs https://mise.jdx.dev/gpg-key.pub | sudo tee /etc/apt/keyrings/mise-archive-keyring.asc 1> /dev/null
-    echo "deb [signed-by=/etc/apt/keyrings/mise-archive-keyring.asc] https://mise.jdx.dev/deb stable main" | sudo tee /etc/apt/sources.list.d/mise.list
+    curl -fSs https://mise.jdx.dev/gpg-key.pub | sudo tee /etc/apt/keyrings/mise-archive-keyring.asc > /dev/null
+    echo "deb [signed-by=/etc/apt/keyrings/mise-archive-keyring.asc] https://mise.jdx.dev/deb stable main" | sudo tee /etc/apt/sources.list.d/mise.list > /dev/null
 fi
 
 # Begin
-pkg-update > /dev/null 2>&1
+pkg-update &> /dev/null
 
 # Install general terminal tools 
 sudo "$PCKMNG" install -y ghostty kitty-terminfo vim latexmk fastfetch highlight
 
 # Install Zsh and set as default shell
-sudo "$PCKMNG" install -y zsh > /dev/null 2>&1
+sudo "$PCKMNG" install -y zsh &> /dev/null
 
 if [ "$SHELL" != "$(which zsh)" ]; then
   sudo chsh -s "$(which zsh)" "$USER"
@@ -33,7 +33,7 @@ rm ~/.bash* 2> /dev/null
 
 # Configure Zsh plugins
 ZINIT_HOME="$XDG_DATA_HOME/zinit"
-bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)" > /dev/null 2>&1
+bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)" &> /dev/null
 # zsh -c 'zinit self-update'
 
 # Configure Vim
@@ -41,7 +41,7 @@ curl -fLo "$XDG_CONFIG_HOME/vim/autoload/plug.vim" --create-dirs https://raw.git
 mkdir -p "$XDG_CACHE_HOME/vim/swap" "$XDG_CACHE_HOME/vim/backup"
 
 # Mise
-sudo "$PCKMNG" install -y mise > /dev/null 2>&1
+sudo "$PCKMNG" install -y mise &> /dev/null
 mise use --global node@lts > /dev/null
 npm install -g @openai/codex
 mise use --global java@21 > /dev/null

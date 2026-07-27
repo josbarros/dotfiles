@@ -1,7 +1,7 @@
-#!/bin/sh
+#!/bin/bash
 
 # Begin
-pkg-update > /dev/null 2>&1
+pkg-update &> /dev/null
 
 # Load the scroll wheel hack
 # sudo ln -s "$HOME/.local/bin/99-wheel-scroll-factor.lua" /etc/libinput/plugins/99-wheel-scroll-factor.lua 2> /dev/null
@@ -17,7 +17,7 @@ sudo "$PCKMNG" remove -y tuned tuned-ppd
 
 if ps -p 1 | grep -q "systemd"; then
     sudo systemctl enable tlp.service tlp-pd.service
-    sudo systemctl mask systemd-rfkill.service systemd-rfkill.socket
+    sudo systemctl mask systemd-rfkill.service systemd-rfkill.socket > /dev/null
 fi
 
 # Install powertop
