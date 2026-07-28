@@ -1,61 +1,89 @@
 #!/bin/bash
 
-# Begin
-pkg-update &> /dev/null
+main () {
+	local MAIN_STATUS=0
+	pkg-update > /dev/null || { echo "Problem with updating the package manager" >&2; MAIN_STATUS=1;}
+    # load_wheel_scroll_hack	
+	configure_user_dirs || { echo "Problem with user dir config!" >&2; MAIN_STATUS=1;}
+	install_misc || { echo "Problem with some misc install!" >&2; MAIN_STATUS=1;}
+	install_tlp || { echo "Problem with tlp installation!" >&2; MAIN_STATUS=1;}
+	install_gnome_exts || { echo "Problem with gnome extensions!" >&2; MAIN_STATUS=1;}
+	configure_gnome || { echo "Problem configuring gnome!" >&2; MAIN_STATUS=1;}
+	if (($MAIN_STATUS)); then
+		echo "Something went wrong!"
+		return 1
+	fi
+	echo "SUCCSSESS!!!!!!!!!!!"
+}
 
-# Load the scroll wheel hack
-# sudo ln -s "$HOME/.local/bin/99-wheel-scroll-factor.lua" /etc/libinput/plugins/99-wheel-scroll-factor.lua 2> /dev/null
+load_wheel_scroll_hack () {
+	echo "Applying the scroll wheel hack!"	
+	sudo ln -s "$HOME/.local/bin/99-wheel-scroll-factor.lua" /etc/libinput/plugins/99-wheel-scroll-factor.lua 2> /dev/null
+}
 
-# Set base dirs to english 
-rm -f "$XDG_CONFIG_HOME/user-dirs.dirs"
-LANG=en_US.UTF-8 xdg-user-dirs-update 
-echo 'pt_PT' > "$XDG_CONFIG_HOME/user-dirs.locale" # Avoid annoying popup at boot
+configure_user_dirs () {
+	echo "Configuring user dirs!"
+	# Set base dirs to english 
+	rm -f "$XDG_CONFIG_HOME/user-dirs.dirs" || return
+	LANG=en_US.UTF-8 xdg-user-dirs-update || return
+	# Avoid annoying popup at boot
+	echo 'pt_PT' > "$XDG_CONFIG_HOME/user-dirs.locale"
+}
 
-# Install tlp
-sudo "$PCKMNG" install -y tlp tlp-rdw
-if [ "$PCKMNG" = "dnf" ]; then
-    sudo dnf install -y tlp-pd # not available right now on debian
-fi
-sudo "$PCKMNG" remove -y tuned tuned-ppd
+install_misc () {
+	echo "Installing misc crap!"
+	local STATUS=0	
+	sudo "$PCKMNG" install -y powertop gnome-tweaks gnome-extensions-app || STATUS=$?
+	# TODO Ver maneira de ja esta calibrado ou nao, ou se isso e' sequer preciso
+	# sudo powertop -c # calibrate
+	# Install on the old thinkpad to confirm video HW accelation on FF
+	if [ "$PCKMNG" = "apt" ]; then
+	    sudo apt install -y intel-gpu-tools || STATUS=$?
+	fi
+	return $STATUS
+}
 
-if ps -p 1 | grep -q "systemd"; then
-    sudo systemctl enable tlp.service tlp-pd.service
-    sudo systemctl mask systemd-rfkill.service systemd-rfkill.socket > /dev/null
-fi
+install_tlp () {
+	echo "Installing tlp!"
+	# Install tlp
+	sudo "$PCKMNG" install -y tlp tlp-rdw || return
+	if [ "$PCKMNG" = "dnf" ]; then
+		# not available right now on debian
+	    sudo dnf install -y tlp-pd || return
+	fi
+	sudo "$PCKMNG" remove -y tuned tuned-ppd || return
+	if ps -p 1 | grep -q "systemd"; then
+	    sudo systemctl enable tlp.service tlp-pd.service || return
+	    sudo systemctl mask systemd-rfkill.service systemd-rfkill.socket > /dev/null
+	fi
+}
 
-# Install powertop
-sudo "$PCKMNG" install -y powertop
-# TODO Ver maneira de ja esta calibrado ou nao, ou se isso e' sequer preciso
-# sudo powertop -c # calibrate
+install_gnome_exts () {
+	echo "Installing gnome extensions!"
+	sudo "$PCKMNG" install -y pipx || return
+	# Install gnome extensions - marcs14 is the power manager
+	pipx install gnome-extensions-cli > /dev/null || return
+	gext install accent-directories@taiwbi.com appindicatorsupport@rgcjonas.gmail.com auto-accent-colour@Wartybix caffeine@patapon.info drive-menu@gnome-shell-extensions.gcampax.github.com marcs14@gmail.com clipboard-indicator@tudmotu.com power-switching-manager@joseruibarros.com executor@raujonas.github.io
+}
 
-# Install on the old thinkpad to confirm video HW accelation on FF
-if [ "$PCKMNG" = "apt" ]; then
-    sudo apt install -y intel-gpu-tools
-fi
+configure_gnome () {
+	echo "Configuring gnome!"
+	local STATUS=0
+	# Move window buttons to the left, like MacOS
+	gsettings set org.gnome.desktop.wm.preferences button-layout "close:appmenu" || STATUS=$?
+	# Swap esc and caps, right ctrl as compose key, keypad as four-level key with dot - this resets all other keyboard settings, careful!
+	gsettings set org.gnome.desktop.input-sources xkb-options "['caps:swapescape','compose:rctrl','kpdl:dotoss']" || STATUS=$?
+	# Set location and night light
+	gsettings set org.gnome.system.location enabled true || STATUS=$?
+	gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true || STATUS=$?
+	gsettings set org.gnome.settings-daemon.plugins.color night-light-schedule-automatic true || STATUS=$?
+	# Set automatic date time and time zone
+	# TODO add automatic date and time
+	gsettings set org.gnome.desktop.datetime automatic-timezone true || STATUS=$?
+	# Show battery percentage
+	gsettings set org.gnome.desktop.interface show-battery-percentage true || STATUS=$?
+	return $STATUS
+}
 
-# Install gnome tools + pipx
-sudo "$PCKMNG" install -y gnome-tweaks gnome-extensions-app pipx
+main
 
-# Install gnome extensions - marcs14 is the power manager
-pipx install gnome-extensions-cli > /dev/null
-gext install accent-directories@taiwbi.com appindicatorsupport@rgcjonas.gmail.com auto-accent-colour@Wartybix caffeine@patapon.info drive-menu@gnome-shell-extensions.gcampax.github.com marcs14@gmail.com clipboard-indicator@tudmotu.com power-switching-manager@joseruibarros.com executor@raujonas.github.io
-
-# Configure gnome settings
-
-# Move window buttons to the left, like MacOS
-gsettings set org.gnome.desktop.wm.preferences button-layout "close:appmenu"
-
-# Swap esc and caps, right ctrl as compose key, keypad as four-level key with dot - this resets all other keyboard settings, careful!
-gsettings set org.gnome.desktop.input-sources xkb-options "['caps:swapescape','compose:rctrl','kpdl:dotoss']"
-
-# Set location and night light
-gsettings set org.gnome.system.location enabled true
-gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true
-gsettings set org.gnome.settings-daemon.plugins.color night-light-schedule-automatic true
-
-# Set automatic date time and time zone
-# TODO add automatic date and time
-gsettings set org.gnome.desktop.datetime automatic-timezone true
-
-# Show battery percentage
-gsettings set org.gnome.desktop.interface show-battery-percentage true
