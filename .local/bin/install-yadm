@@ -1,41 +1,65 @@
 #!/bin/sh
 
-# Add yadm repo before upgrading
-if [ -d /etc/dnf/ ]; then
-    sudo dnf config-manager addrepo --from-repofile=https://download.opensuse.org/repositories/home:TheLocehiliosan:yadm/Fedora_42/home:TheLocehiliosan:yadm.repo 2> /dev/null
-    sudo dnf install -y yadm > /dev/null || exit 1
-elif [ -d /etc/apt/ ]; then
-    sudo apt-get update > /dev/null && sudo apt-get install -y yadm || exit 1
-else
-    echo "No supported package manager found" >&2
-    exit 1
-fi
+main () {
+	install_yadm || { echo "yadm installation failed!" >&2; return 1;}
+	SSH_DIR="$HOME/.ssh"
+   	SSH_KEY="$SSH_DIR/id_ed25519_sk_rk"
+	config_ssh || { echo "ssh config failed!" >&2; return 1;}
+	config_repo || { echo "yadm repo configuration failed!" >&2; return 1;}
+	gnupg_cleanup || { echo "gnupg cleanup failed!" >&2; return 1;}
+	echo "Succssess! Please log off now to refresh .profile"
+}
 
-# Add ssh keys
-SSH_DIR="$HOME/.ssh"
-mkdir -p "$SSH_DIR"
-cd "$SSH_DIR" || exit 1
-while true; do
-    if [ -e id_ed25519_sk_rk ] ; then
-        echo "Hardware SSH key is loaded!"
-        break
-    fi
-    echo "Waiting for the user to get an SSH key from an external hardware key"
-    ssh-keygen -K
-done
-cd - > /dev/null
+install_yadm () {
+	echo "Installing yadm!"	
+	# Add yadm repo before upgrading
+	if [ -d /etc/dnf/ ]; then
+	    sudo dnf config-manager addrepo --overwrite --from-repofile=https://download.opensuse.org/repositories/home:TheLocehiliosan:yadm/Fedora_42/home:TheLocehiliosan:yadm.repo 2> /dev/null &&
+	    sudo dnf install -y yadm > /dev/null
+	elif [ -d /etc/apt/ ]; then
+	    sudo apt-get update > /dev/null && sudo apt-get install -y yadm
+	else
+	    echo "No supported package manager found" >&2
+	    return 1
+	fi
+}
 
-# Clone the dotfiles repo
-export GIT_SSH_COMMAND="ssh -o IdentityAgent=none -o IdentitiesOnly=yes -i $SSH_DIR/id_ed25519_sk_rk"
-yadm clone git@github.com:josbarros/dotfiles.git > /dev/null || exit 1
-yadm gitconfig user.email "joserui@joseruibarros.com" || exit 1
-yadm gitconfig user.name "José Rui Barros" || exit 1
+config_ssh () {
+	echo "Configuring ssh!"	
+	# Add ssh keys
+	mkdir -p "$SSH_DIR" && 
+	cd "$SSH_DIR" || return
+	while true; do
+	    if [ -e "$SSH_KEY" ] ; then
+	        echo "Hardware SSH key is loaded!"
+	        break
+	    fi
+	    echo "Waiting for the user to get an SSH key from an external hardware key"
+	    ssh-keygen -K
+	done
+	cd - > /dev/null
+}
 
-# Finish off
-if [ -d ~/.gnupg ] ; then
-    DIR="$HOME/.local/share"
-    mkdir -p "$DIR" 
-    mv ~/.gnupg "$DIR/gnupg"
-fi
-echo "Succssess! Please log off now to refresh .profile"
+config_repo () {
+	echo "Cloning yadm repo!"	
+	# Add ssh keys
+	# Clone the dotfiles repo
+	export GIT_SSH_COMMAND="ssh -o IdentityAgent=none -o IdentitiesOnly=yes -i \"$SSH_KEY\""
+	if [ ! -d "$(yadm introspect repo)" ]; then
+		yadm clone git@github.com:josbarros/dotfiles.git > /dev/null || return
+	fi
+	yadm gitconfig user.email "joserui@joseruibarros.com" &&
+	yadm gitconfig user.name "José Rui Barros"
+}
 
+gnupg_cleanup () {
+	# Finish off
+	echo "Cleaning up gnupg!"	
+	if [ -d ~/.gnupg ] ; then
+	    DIR="$HOME/.local/share"
+	    mkdir -p "$DIR" &&
+	    mv ~/.gnupg "$DIR/gnupg"
+	fi
+}
+
+main
