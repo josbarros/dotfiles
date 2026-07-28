@@ -17,6 +17,9 @@ set backspace=eol,start
 " Enable spellchecker automatically for Markdown files
 autocmd FileType markdown setlocal spell spelllang=en_gb
 
+" Sane tab spacing
+set tabstop=4
+
 " Sane copy paste
 vnoremap p "_dP
 
