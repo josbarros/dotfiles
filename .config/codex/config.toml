@@ -1,12 +1,13 @@
-model = "gpt-5.6-terra"
-model_reasoning_effort = "medium"
+model = "gpt-5.6-sol"
+model_reasoning_effort = "low"
 personality = "friendly"
 sandbox_mode = "read-only"
 approval_policy = "untrusted"
 
 [tui]
-status_line = ["model-with-reasoning", "current-dir", "context-remaining", "context-window-size", "five-hour-limit", "weekly-limit", "fast-mode"]
+status_line = ["model-with-reasoning", "current-dir", "context-remaining", "context-window-size", "five-hour-limit", "weekly-limit", "approval-mode", "permissions", "fast-mode"]
 session_picker_view = "comfortable"
 pet = "seedy"
 vim_mode_default = true
+status_line_use_colors = true
 
