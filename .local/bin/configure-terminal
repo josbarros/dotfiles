@@ -1,52 +1,86 @@
 #!/bin/bash
 
-# Package manager setup
-if [ "$PCKMNG" = "dnf" ]; then
-    sudo dnf copr enable scottames/ghostty -y &> /dev/null
-    sudo dnf copr enable jdxcode/mise -y &> /dev/null
-elif [ "$PCKMNG" = "apt" ]; then
-    sudo apt install -y curl &> /dev/null
-    # Ghostty
-    curl -fsSL https://deb.griffo.io/EA0F721D231FDD3A0A17B9AC7808B4DD62C41256.asc | sudo gpg --dearmor --yes -o /usr/share/keyrings/deb.griffo.io.gpg
-    echo "deb [signed-by=/usr/share/keyrings/deb.griffo.io.gpg] https://deb.griffo.io/apt trixie main" | sudo tee /etc/apt/sources.list.d/deb.griffo.io.list > /dev/null
-    # Mise
-    sudo install -dm 755 /etc/apt/keyrings
-    curl -fSs https://mise.jdx.dev/gpg-key.pub | sudo tee /etc/apt/keyrings/mise-archive-keyring.asc > /dev/null
-    echo "deb [signed-by=/etc/apt/keyrings/mise-archive-keyring.asc] https://mise.jdx.dev/deb stable main" | sudo tee /etc/apt/sources.list.d/mise.list > /dev/null
-fi
+main () {
+	MAIN_STATUS=0
+	pkg-update > /dev/null || MAIN_STATUS=1
+	install_misc || return # contains curl for later 
+	install_zsh || MAIN_STATUS=1
+	install_ranger || MAIN_STATUS=1
+	install_vim || MAIN_STATUS=1
+	install_mise || MAIN_STATUS=1 
+	install_ghostty || MAIN_STATUS=1
+	if ((MAIN_STATUS)); then
+		echo "Something went wrong!" >&2	
+		return 1
+	fi
+	echo "SUCCESS!!!!!!"
+}
 
-# Begin
-pkg-update &> /dev/null
+install_zsh () {
+	echo "Installing ZSH!"
+	sudo "$PCKMNG" install -y zsh || return 1
+	if [ "$SHELL" != "$(which zsh)" ]; then
+	  sudo chsh -s "$(which zsh)" "$USER" || return 1
+	else
+	  echo "You are already using zsh."
+	fi
+	# rm ~/.bash* 2> /dev/null # TODO meter isto noutro lado?
+	# Configure Zsh plugins
+	export ZINIT_HOME="$XDG_DATA_HOME/zinit"
+	bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)" &> /dev/null
+	# zsh -c 'zinit self-update' TODO ver isto?
+}
 
-# Install general terminal tools 
-sudo "$PCKMNG" install -y ghostty kitty-terminfo vim latexmk fastfetch highlight
+install_ranger () {
+	echo "Installing Ranger!"
+	# use the most recent master version since the latest oficial release has too many bugs
+	sudo "$PCKMNG" install -y pipx trash-cli && # for ranger trash
+	pipx install git+https://github.com/ranger/ranger.git > /dev/null &&
+	pipx inject ranger-fm pillow > /dev/null
+}
 
-# Install Zsh and set as default shell
-sudo "$PCKMNG" install -y zsh &> /dev/null
+install_vim () {
+	echo "Installing VIM!"	
+	sudo "$PCKMNG" install -y vim &&
+	# Configure Vim
+	mkdir -p "$XDG_CACHE_HOME/vim/swap" "$XDG_CACHE_HOME/vim/backup" &&
+	curl -fLo "$XDG_CONFIG_HOME/vim/autoload/plug.vim" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+}
 
-if [ "$SHELL" != "$(which zsh)" ]; then
-  sudo chsh -s "$(which zsh)" "$USER"
-else
-  echo "You are already using zsh."
-fi
-rm ~/.bash* 2> /dev/null
 
-# Configure Zsh plugins
-ZINIT_HOME="$XDG_DATA_HOME/zinit"
-bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)" &> /dev/null
-# zsh -c 'zinit self-update'
+install_misc () {
+	echo "Installing misc crap!"	
+	sudo "$PCKMNG" install -y latexmk fastfetch highlight curl
+}
 
-# Configure Vim
-curl -fLo "$XDG_CONFIG_HOME/vim/autoload/plug.vim" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-mkdir -p "$XDG_CACHE_HOME/vim/swap" "$XDG_CACHE_HOME/vim/backup"
+install_mise () {
+	echo "Installing Mise!"	
+	if [ "$PCKMNG" = "dnf" ]; then
+	    sudo dnf copr enable jdxcode/mise -y &> /dev/null || return 1	
+	elif [ "$PCKMNG" = "apt" ]; then
+	    sudo install -dm 755 /etc/apt/keyrings &&
+	    curl -fSs https://mise.jdx.dev/gpg-key.pub | sudo tee /etc/apt/keyrings/mise-archive-keyring.asc > /dev/null &&
+	    echo "deb [signed-by=/etc/apt/keyrings/mise-archive-keyring.asc] https://mise.jdx.dev/deb stable main" | sudo tee /etc/apt/sources.list.d/mise.list > /dev/null &&
+		sudo apt update || return 1
+	fi
+	sudo "$PCKMNG" install -y mise &> /dev/null && 
+	mise use --global node@lts > /dev/null && 
+	mise use --global java@21 > /dev/null &&
+	npm install -g @openai/codex # TODO isto noutro lado?
+}
 
-# Mise
-sudo "$PCKMNG" install -y mise &> /dev/null
-mise use --global node@lts > /dev/null
-npm install -g @openai/codex
-mise use --global java@21 > /dev/null
+install_ghostty () {
+	echo "Installing Ghostty!"	
+	if [ "$PCKMNG" = "dnf" ]; then
+	    sudo dnf copr enable scottames/ghostty -y &> /dev/null || return 1
+	elif [ "$PCKMNG" = "apt" ]; then
+	    # Ghostty
+	    curl -fsSL https://deb.griffo.io/EA0F721D231FDD3A0A17B9AC7808B4DD62C41256.asc | sudo gpg --dearmor --yes -o /usr/share/keyrings/deb.griffo.io.gpg &&
+	    echo "deb [signed-by=/usr/share/keyrings/deb.griffo.io.gpg] https://deb.griffo.io/apt trixie main" | sudo tee /etc/apt/sources.list.d/deb.griffo.io.list > /dev/null &&
+		sudo apt update || return 1
+	fi
+	sudo "$PCKMNG" install -y ghostty kitty-terminfo
+}
 
-# Install ranger - to use the most recent version since the latest release has too many bugs
-sudo "$PCKMNG" install -y pipx trash-cli # for ranger trash
-pipx install git+https://github.com/ranger/ranger.git > /dev/null
-pipx inject ranger-fm pillow > /dev/null
+main
+
