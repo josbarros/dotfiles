@@ -2,18 +2,18 @@
 
 main () {
 	local MAIN_STATUS=0
-	pkg-update > /dev/null || { echo "Problem with updating the package manager" >&2; MAIN_STATUS=1;}
+	pkg-update > /dev/null || MAIN_STATUS=1
     # load_wheel_scroll_hack	
-	configure_user_dirs || { echo "Problem with user dir config!" >&2; MAIN_STATUS=1;}
-	install_misc || { echo "Problem with some misc install!" >&2; MAIN_STATUS=1;}
-	install_tlp || { echo "Problem with tlp installation!" >&2; MAIN_STATUS=1;}
-	install_gnome_exts || { echo "Problem with gnome extensions!" >&2; MAIN_STATUS=1;}
-	configure_gnome || { echo "Problem configuring gnome!" >&2; MAIN_STATUS=1;}
+	configure_user_dirs || MAIN_STATUS=1
+	install_misc || MAIN_STATUS=1
+	install_tlp || MAIN_STATUS=1
+	install_gnome_exts || MAIN_STATUS=1
+	configure_gnome || MAIN_STATUS=1
 	if (($MAIN_STATUS)); then
-		echo "Something went wrong!"
+		echo "Something went wrong!" >&2
 		return 1
 	fi
-	echo "SUCCSSESS!!!!!!!!!!!"
+	echo "SUCCESS!!!!!!!!!!!"
 }
 
 load_wheel_scroll_hack () {
@@ -24,8 +24,8 @@ load_wheel_scroll_hack () {
 configure_user_dirs () {
 	echo "Configuring user dirs!"
 	# Set base dirs to english 
-	rm -f "$XDG_CONFIG_HOME/user-dirs.dirs" || return
-	LANG=en_US.UTF-8 xdg-user-dirs-update || return
+	rm -f "$XDG_CONFIG_HOME/user-dirs.dirs" &&
+	LANG=en_US.UTF-8 xdg-user-dirs-update &&
 	# Avoid annoying popup at boot
 	echo 'pt_PT' > "$XDG_CONFIG_HOME/user-dirs.locale"
 }
@@ -53,16 +53,16 @@ install_tlp () {
 	fi
 	sudo "$PCKMNG" remove -y tuned tuned-ppd || return
 	if ps -p 1 | grep -q "systemd"; then
-	    sudo systemctl enable tlp.service tlp-pd.service || return
+	    sudo systemctl enable tlp.service tlp-pd.service &&
 	    sudo systemctl mask systemd-rfkill.service systemd-rfkill.socket > /dev/null
 	fi
 }
 
 install_gnome_exts () {
 	echo "Installing gnome extensions!"
-	sudo "$PCKMNG" install -y pipx || return
+	sudo "$PCKMNG" install -y pipx &&
 	# Install gnome extensions - marcs14 is the power manager
-	pipx install gnome-extensions-cli > /dev/null || return
+	pipx install gnome-extensions-cli > /dev/null &&
 	gext install accent-directories@taiwbi.com appindicatorsupport@rgcjonas.gmail.com auto-accent-colour@Wartybix caffeine@patapon.info drive-menu@gnome-shell-extensions.gcampax.github.com marcs14@gmail.com clipboard-indicator@tudmotu.com power-switching-manager@joseruibarros.com executor@raujonas.github.io
 }
 
