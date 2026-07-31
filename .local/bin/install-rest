@@ -1,26 +1,51 @@
 #!/bin/bash
 
-# Add steam and vscode dnf repos, needs to be before the dnf upgrade call
-sudo dnf config-manager setopt rpmfusion-nonfree-steam.enabled=1 # steam repo
-sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
-echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\nautorefresh=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null
+main () {
+	STATUS=0	
+	install_steam || STATUS=1
+	install_vscode || STATUS=1
+	install_misc || STATUS=1
+	load_flathub || { echo "flathub load failed!!!!!"; return 1; }
+	install_misc_flathub || STATUS=1
+	install_betterbird || STATUS=1
+	if (($STATUS)); then
+		echo "Something went wrong!!!" >&2	
+		return 1
+	fi
+	echo "SUCCESS!!!!!!"
+}
 
-dnf check-update &> /dev/null
+install_steam () {
+	sudo dnf config-manager setopt rpmfusion-nonfree-steam.enabled=1 && 
+	sudo dnf install -y steam
+}
 
-# Install everything dnf
-sudo dnf install -y nextcloud-client calibre steam code mutter-devkit
+install_vscode () {
+	sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc &&
+	echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\nautorefresh=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null &&
+	sudo dnf install -y code
+}
 
-# Prepare flathub
-sudo flatpak remote-modify --enable flathub
-flatpak update --appstream > /dev/null
+install_misc () {
+	sudo dnf install -y nextcloud-client calibre mutter-devkit
+}
 
-# Install everything flathub
-flatpak install -y flathub org.signal.Signal com.discordapp.Discord com.yubico.yubioath io.ente.photos com.brave.Browser com.bitwarden.desktop com.ktechpit.whatsie cc.arduino.IDE2
+load_flathub () {
+	sudo flatpak remote-modify --enable flathub &&
+	flatpak update --appstream > /dev/null
+}
 
-# Install Betterbird 
-sudo dnf remove -y opensc # gpg-scdaemon wants full access to SC so we remove this
-sudo dnf install -y gnupg2-scdaemon 
-flatpak install -y flathub eu.betterbird.Betterbird 2> /dev/null
-flatpak override --user --filesystem="$GNUPGHOME" eu.betterbird.Betterbird 
-gpg --import "$XDG_DATA_HOME/public.asc"
+install_misc_flathub (){
+	flatpak install -y flathub org.signal.Signal com.discordapp.Discord com.yubico.yubioath io.ente.photos com.brave.Browser com.bitwarden.desktop com.ktechpit.whatsie cc.arduino.IDE2
+}
+
+install_betterbird () {
+	sudo dnf remove -y opensc && # gpg-scdaemon wants full access to SC so we remove this 
+	sudo dnf install -y gnupg2-scdaemon &&
+	flatpak install -y flathub eu.betterbird.Betterbird &&
+	flatpak override --user --filesystem="$GNUPGHOME" eu.betterbird.Betterbird &&
+	gpg --import "$XDG_DATA_HOME/public.asc"
+}
+
+main
 
