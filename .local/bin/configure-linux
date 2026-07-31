@@ -1,8 +1,8 @@
 #!/bin/bash
 
 main () {
+	pkg-update > /dev/null || { echo "pkg update failed!!!!!!" >&2; return 1; }
 	local MAIN_STATUS=0
-	pkg-update > /dev/null || MAIN_STATUS=1
     # load_wheel_scroll_hack	
 	configure_user_dirs || MAIN_STATUS=1
 	install_misc || MAIN_STATUS=1
