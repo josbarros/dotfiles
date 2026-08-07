@@ -4,6 +4,7 @@ main () {
 	pkg-update > /dev/null || { echo "pkg update failed!!!!!!" >&2; return 1; }
 	local MAIN_STATUS=0
     # load_wheel_scroll_hack	
+	fix_mac_keyboard || MAIN_STATUS=1
 	configure_user_dirs || MAIN_STATUS=1
 	install_misc || MAIN_STATUS=1
 	install_tlp || MAIN_STATUS=1
@@ -19,6 +20,11 @@ main () {
 load_wheel_scroll_hack () {
 	echo "Applying the scroll wheel hack!"	
 	sudo ln -s "$HOME/.local/bin/99-wheel-scroll-factor.lua" /etc/libinput/plugins/99-wheel-scroll-factor.lua 2> /dev/null
+}
+
+fix_mac_keyboard () {
+	echo "Applying mac keyboard fix!"
+	echo 'options hid_apple fnmode=1' | sudo tee /etc/modprobe.d/hid_apple.conf > /dev/null
 }
 
 configure_user_dirs () {
@@ -71,8 +77,8 @@ configure_gnome () {
 	local STATUS=0
 	# Move window buttons to the left, like MacOS
 	gsettings set org.gnome.desktop.wm.preferences button-layout "close:appmenu" || STATUS=$?
-	# Swap esc and caps, right ctrl as compose key, keypad as four-level key with dot - this resets all other keyboard settings, careful!
-	gsettings set org.gnome.desktop.input-sources xkb-options "['caps:swapescape','compose:rctrl','kpdl:dotoss']" || STATUS=$?
+	# Swap esc and caps, use right Super as AltGr, keypad as four-level key with dot - this resets all other keyboard settings, careful!
+	gsettings set org.gnome.desktop.input-sources xkb-options "['caps:swapescape','lv3:rwin_switch','kpdl:dotoss']" || STATUS=$?
 	# Set location and night light
 	gsettings set org.gnome.system.location enabled true || STATUS=$?
 	gsettings set org.gnome.settings-daemon.plugins.color night-light-enabled true || STATUS=$?
@@ -86,4 +92,3 @@ configure_gnome () {
 }
 
 main
-
