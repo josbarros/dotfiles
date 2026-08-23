@@ -63,11 +63,13 @@ install_tlp () {
 }
 
 install_gnome_exts () {
+	exts=("accent-directories@taiwbi.com" "appindicatorsupport@rgcjonas.gmail.com" "auto-accent-colour@Wartybix" "caffeine@patapon.info" "drive-menu@gnome-shell-extensions.gcampax.github.com" "marcs14@gmail.com" "clipboard-indicator@tudmotu.com" "power-switching-manager@joseruibarros.com" "executor@raujonas.github.io")
 	echo "Installing gnome extensions!"
 	sudo "$PCKMNG" install -y pipx &&
 	# Install gnome extensions - marcs14 is the power manager
 	pipx install gnome-extensions-cli > /dev/null &&
-	gext install accent-directories@taiwbi.com appindicatorsupport@rgcjonas.gmail.com auto-accent-colour@Wartybix caffeine@patapon.info drive-menu@gnome-shell-extensions.gcampax.github.com marcs14@gmail.com clipboard-indicator@tudmotu.com power-switching-manager@joseruibarros.com executor@raujonas.github.io
+	gext install "${exts[@]}" &&
+	gext enable "${exts[@]}"
 }
 
 configure_gnome () {
