@@ -50,7 +50,7 @@ install_vim () {
 
 install_misc () {
 	echo "Installing misc crap!"	
-	sudo "$PCKMNG" install -y latexmk fastfetch highlight curl
+	sudo "$PCKMNG" install -y latexmk fastfetch highlight curl htop git adb
 }
 
 install_mise () {
@@ -66,6 +66,8 @@ install_mise () {
 	sudo "$PCKMNG" install -y mise &> /dev/null && 
 	mise use --global node@lts > /dev/null && 
 	mise use --global java@21 > /dev/null &&
+	mise use --global gradle > /dev/null &&
+	mise use --global python > /dev/null &&
 	npm install -g @openai/codex # TODO isto noutro lado?, deve falhar em novas instalacoes
 }
 

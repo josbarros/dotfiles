@@ -39,7 +39,7 @@ configure_user_dirs () {
 install_misc () {
 	echo "Installing misc crap!"
 	local STATUS=0	
-	sudo "$PCKMNG" install -y powertop gnome-tweaks gnome-extensions-app || STATUS=$?
+	sudo "$PCKMNG" install -y powertop gnome-tweaks gnome-extensions-app guvcview || STATUS=$?
 	# TODO Ver maneira de ja esta calibrado ou nao, ou se isso e' sequer preciso
 	# sudo powertop -c # calibrate
 	# Install on the old thinkpad to confirm video HW accelation on FF
