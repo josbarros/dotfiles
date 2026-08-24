@@ -31,7 +31,7 @@ configure_user_dirs () {
 	echo "Configuring user dirs!"
 	# Set base dirs to english 
 	rm -f "$XDG_CONFIG_HOME/user-dirs.dirs" &&
-	LANG=en_US.UTF-8 xdg-user-dirs-update &&
+	LANGUAGE=en LC_ALL=en_US.UTF-8 xdg-user-dirs-update &&
 	# Avoid annoying popup at boot
 	echo 'pt_PT' > "$XDG_CONFIG_HOME/user-dirs.locale"
 }
