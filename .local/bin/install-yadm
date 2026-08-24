@@ -1,8 +1,8 @@
 #!/bin/sh
 
 main () {
-	SSH_DIR="$HOME/.ssh"
-   	SSH_KEY="$SSH_DIR/id_ed25519_sk_rk"
+	SSH_DIR="$HOME/.ssh" &&
+   	SSH_KEY="$SSH_DIR/id_ed25519_sk_rk" &&
 	install_yadm &&
 	config_ssh &&
 	config_repo &&
@@ -44,10 +44,10 @@ config_repo () {
 	echo "Cloning yadm repo!"	
 	# Add ssh keys
 	# Clone the dotfiles repo
-	export GIT_SSH_COMMAND="ssh -o IdentityAgent=none -o IdentitiesOnly=yes -i \"$SSH_KEY\""
+	export GIT_SSH_COMMAND="ssh -o IdentityAgent=none -o IdentitiesOnly=yes -i \"$SSH_KEY\"" &&
 	if [ ! -d "$(yadm introspect repo)" ]; then
-		yadm clone git@github.com:josbarros/dotfiles.git || return
-	fi
+		yadm clone git@github.com:josbarros/dotfiles.git 
+	fi &&
 	yadm gitconfig user.email "joserui@joseruibarros.com" &&
 	yadm gitconfig user.name "José Rui Barros"
 }
@@ -55,7 +55,7 @@ config_repo () {
 gnupg_cleanup () {
 	# Finish off
 	echo "Cleaning up gnupg!"	
-	DIR="$HOME/.local/share"
+	DIR="$HOME/.local/share" &&
 	if [ -d ~/.gnupg ] && [ ! -d "$DIR/gnupg" ]; then
 	    mkdir -p "$DIR" &&
 	    mv ~/.gnupg "$DIR/gnupg"
