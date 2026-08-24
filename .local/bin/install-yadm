@@ -55,8 +55,8 @@ config_repo () {
 gnupg_cleanup () {
 	# Finish off
 	echo "Cleaning up gnupg!"	
-	if [ -d ~/.gnupg ] ; then
-	    DIR="$HOME/.local/share"
+	DIR="$HOME/.local/share"
+	if [ -d ~/.gnupg ] && [ ! -d "$DIR/gnupg" ]; then
 	    mkdir -p "$DIR" &&
 	    mv ~/.gnupg "$DIR/gnupg"
 	fi
