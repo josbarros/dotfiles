@@ -1,9 +1,9 @@
 #!/bin/bash
 
 main () {
-	MAIN_STATUS=0
 	pkg-update > /dev/null &&
 	install_misc || { echo "Base package install failed!!!" >&2; return 1; } # contains curl for later 
+	MAIN_STATUS=0
 	install_zsh || MAIN_STATUS=1
 	install_ranger || MAIN_STATUS=1
 	install_vim || MAIN_STATUS=1
@@ -18,15 +18,15 @@ main () {
 
 install_zsh () {
 	echo "Installing ZSH!"
-	sudo "$PCKMNG" install -y zsh || return 
+	sudo "$PCKMNG" install -y zsh &&
 	if [ "$SHELL" != "$(which zsh)" ]; then
-	  sudo chsh -s "$(which zsh)" "$USER" || return 
+	  sudo chsh -s "$(which zsh)" "$USER"
 	else
 	  echo "You are already using zsh."
-	fi
+	fi &&
 	# rm ~/.bash* 2> /dev/null # TODO meter isto noutro lado?
 	# Configure Zsh plugins
-	export ZINIT_HOME="$XDG_DATA_HOME/zinit"
+	export ZINIT_HOME="$XDG_DATA_HOME/zinit" &&
 	bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)" &> /dev/null
 	# zsh -c 'zinit self-update' TODO ver isto?
 }
@@ -56,13 +56,13 @@ install_misc () {
 install_mise () {
 	echo "Installing Mise!"	
 	if [ "$PCKMNG" = "dnf" ]; then
-	    sudo dnf copr enable jdxcode/mise -y &> /dev/null || return 
+	    sudo dnf copr enable jdxcode/mise -y &> /dev/null
 	elif [ "$PCKMNG" = "apt" ]; then
 	    sudo install -dm 755 /etc/apt/keyrings &&
 	    curl -fSs https://mise.jdx.dev/gpg-key.pub | sudo tee /etc/apt/keyrings/mise-archive-keyring.asc > /dev/null &&
 	    echo "deb [signed-by=/etc/apt/keyrings/mise-archive-keyring.asc] https://mise.jdx.dev/deb stable main" | sudo tee /etc/apt/sources.list.d/mise.list > /dev/null &&
-		sudo apt update || return 
-	fi
+		sudo apt update
+	fi &&
 	sudo "$PCKMNG" install -y mise &> /dev/null && 
 	mise use --global node@lts > /dev/null && 
 	mise use --global java@21 > /dev/null &&
@@ -74,13 +74,13 @@ install_mise () {
 install_ghostty () {
 	echo "Installing Ghostty!"	
 	if [ "$PCKMNG" = "dnf" ]; then
-	    sudo dnf copr enable scottames/ghostty -y &> /dev/null || return 
+	    sudo dnf copr enable scottames/ghostty -y &> /dev/null
 	elif [ "$PCKMNG" = "apt" ]; then
 	    # Ghostty
 	    curl -fsSL https://deb.griffo.io/EA0F721D231FDD3A0A17B9AC7808B4DD62C41256.asc | sudo gpg --dearmor --yes -o /usr/share/keyrings/deb.griffo.io.gpg &&
 	    echo "deb [signed-by=/usr/share/keyrings/deb.griffo.io.gpg] https://deb.griffo.io/apt trixie main" | sudo tee /etc/apt/sources.list.d/deb.griffo.io.list > /dev/null &&
-		sudo apt update || return 
-	fi
+		sudo apt update
+	fi &&
 	sudo "$PCKMNG" install -y ghostty kitty-terminfo
 }
 
