@@ -57,3 +57,8 @@ if [ -d /etc/dnf/ ]; then export PCKMNG="dnf"
 elif [ -d /etc/apt/ ]; then export PCKMNG="apt"
 fi
 
+# Devuan flatpak hack
+if [ -r /etc/profile.d/flatpak.sh ]; then
+    . /etc/profile.d/flatpak.sh
+fi
+
