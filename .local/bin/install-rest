@@ -1,6 +1,7 @@
 #!/bin/bash
 
 main () {
+	pkg-update > /dev/null || { echo "pkg update failed!!!!!!" >&2; return 1; }
 	STATUS=0	
 	install_steam || STATUS=1
 	install_vscode || STATUS=1
@@ -33,13 +34,16 @@ install_vscode () {
 }
 
 install_misc () {
+	if [ "$PCKMNG" = "apt" ]; then
+		return
+	fi
 	sudo "$PCKMNG" install -y nextcloud-client calibre mutter-devkit
 }
 
 load_flathub () {
 	sudo "$PCKMNG" install -y flatpak &&
 	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo &&
-	flatpak remote-modify --enable flathub &&
+	sudo flatpak remote-modify --enable flathub &&
 	flatpak update --appstream > /dev/null
 }
 
@@ -49,7 +53,11 @@ install_misc_flathub (){
 
 install_betterbird () {
 	sudo "$PCKMNG" remove -y opensc && # gpg-scdaemon wants full access to SC so we remove this 
-	sudo "$PCKMNG" install -y gnupg2-scdaemon &&
+	if [ "$PCKMNG" = "dnf" ]; then
+		sudo dnf install -y gnupg2-scdaemon
+	elif [ "$PCKMNG" = "apt" ]; then
+		sudo apt-get -y install scdaemon pcscd libccid
+	fi &&
 	flatpak install -y flathub eu.betterbird.Betterbird &&
 	flatpak override --user --filesystem="$GNUPGHOME" eu.betterbird.Betterbird &&
 	gpg --import "$XDG_DATA_HOME/public.asc"
