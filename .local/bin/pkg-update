@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # if [ "$PCKMNG" = "dnf" ]; then dnf check-update
-if [ "$PCKMNG" = "apt" ]; then sudo apt update
+if [ "$PCKMNG" = "apt" ]; then sudo apt-get update
 fi
 # sudo "$PCKMNG" upgrade -y
 

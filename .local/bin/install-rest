@@ -16,22 +16,30 @@ main () {
 }
 
 install_steam () {
+	if [ "$PCKMNG" = "apt" ]; then
+		return
+	fi
 	sudo dnf config-manager setopt rpmfusion-nonfree-steam.enabled=1 && 
 	sudo dnf install -y steam
 }
 
 install_vscode () {
+	if [ "$PCKMNG" = "apt" ]; then
+		return
+	fi
 	sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc &&
 	echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\nautorefresh=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null &&
 	sudo dnf install -y code
 }
 
 install_misc () {
-	sudo dnf install -y nextcloud-client calibre mutter-devkit
+	sudo "$PCKMNG" install -y nextcloud-client calibre mutter-devkit
 }
 
 load_flathub () {
-	sudo flatpak remote-modify --enable flathub &&
+	sudo "$PCKMNG" install -y flatpak &&
+	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo &&
+	flatpak remote-modify --enable flathub &&
 	flatpak update --appstream > /dev/null
 }
 
@@ -40,8 +48,8 @@ install_misc_flathub (){
 }
 
 install_betterbird () {
-	sudo dnf remove -y opensc && # gpg-scdaemon wants full access to SC so we remove this 
-	sudo dnf install -y gnupg2-scdaemon &&
+	sudo "$PCKMNG" remove -y opensc && # gpg-scdaemon wants full access to SC so we remove this 
+	sudo "$PCKMNG" install -y gnupg2-scdaemon &&
 	flatpak install -y flathub eu.betterbird.Betterbird &&
 	flatpak override --user --filesystem="$GNUPGHOME" eu.betterbird.Betterbird &&
 	gpg --import "$XDG_DATA_HOME/public.asc"
