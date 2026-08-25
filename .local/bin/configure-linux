@@ -42,8 +42,8 @@ install_misc () {
 	# TODO Ver maneira de ja esta calibrado ou nao, ou se isso e' sequer preciso
 	# sudo powertop -c # calibrate
 	# Install on the old thinkpad to confirm video HW accelation on FF
-	if [ "$PCKMNG" = "apt" ]; then
-	    sudo apt install -y intel-gpu-tools
+	if [ "$PCKMNG" = "apt-get" ]; then
+	    sudo apt-get install -y intel-gpu-tools
 	fi
 }
 

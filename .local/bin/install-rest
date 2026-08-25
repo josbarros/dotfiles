@@ -17,7 +17,7 @@ main () {
 }
 
 install_steam () {
-	if [ "$PCKMNG" = "apt" ]; then
+	if [ "$PCKMNG" = "apt-get" ]; then
 		return
 	fi
 	sudo dnf config-manager setopt rpmfusion-nonfree-steam.enabled=1 && 
@@ -25,7 +25,7 @@ install_steam () {
 }
 
 install_vscode () {
-	if [ "$PCKMNG" = "apt" ]; then
+	if [ "$PCKMNG" = "apt-get" ]; then
 		return
 	fi
 	sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc &&
@@ -34,7 +34,7 @@ install_vscode () {
 }
 
 install_misc () {
-	if [ "$PCKMNG" = "apt" ]; then
+	if [ "$PCKMNG" = "apt-get" ]; then
 		return
 	fi
 	sudo "$PCKMNG" install -y nextcloud-client calibre mutter-devkit
@@ -55,8 +55,8 @@ install_betterbird () {
 	sudo "$PCKMNG" remove -y opensc && # gpg-scdaemon wants full access to SC so we remove this 
 	if [ "$PCKMNG" = "dnf" ]; then
 		sudo dnf install -y gnupg2-scdaemon
-	elif [ "$PCKMNG" = "apt" ]; then
-		sudo apt-get -y install scdaemon pcscd libccid
+	elif [ "$PCKMNG" = "apt-get" ]; then
+		sudo apt-get -y install scdaemon
 	fi &&
 	flatpak install -y flathub eu.betterbird.Betterbird &&
 	flatpak override --user --filesystem="$GNUPGHOME" eu.betterbird.Betterbird &&
@@ -64,4 +64,3 @@ install_betterbird () {
 }
 
 main
-

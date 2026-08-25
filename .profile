@@ -54,11 +54,10 @@ export W3M_DIR="$XDG_STATE_HOME/w3m"
 
 # Package manager
 if [ -d /etc/dnf/ ]; then export PCKMNG="dnf"
-elif [ -d /etc/apt/ ]; then export PCKMNG="apt"
+elif [ -d /etc/apt/ ]; then export PCKMNG="apt-get"
 fi
 
 # Devuan flatpak hack
 if [ -r /etc/profile.d/flatpak.sh ]; then
     . /etc/profile.d/flatpak.sh
 fi
-
