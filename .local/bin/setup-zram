@@ -1,0 +1,45 @@
+#!/bin/sh
+
+main () {
+	install_zram_tools &&
+	configure_zram &&
+	configure_autostart &&
+	enable || { echo "Something went wrong!!!"; return 1; }
+	return 0
+}
+
+install_zram_tools () {
+	echo "Installing zram-tools!!!"
+	sudo apt-get update > /dev/null &&
+	sudo apt-get install -y zram-tools
+}
+
+configure_zram () {
+	echo "Configuring zram!!!"
+	sudo tee /etc/default/zramswap >/dev/null <<'EOF'
+ALGO=lz4
+PERCENT=50
+PRIORITY=100
+EOF
+}
+
+configure_autostart () {
+	echo "Configuring automatic startup!!!"
+	sudo install -d -m 755 /etc/boot.d &&
+	sudo tee /etc/boot.d/50-zramswap >/dev/null <<'EOF' &&
+#!/bin/sh
+exec /usr/sbin/zramswap start
+EOF
+	sudo chmod 755 /etc/boot.d/50-zramswap
+}
+
+enable () {
+	echo "Starting up!!!"
+	if grep -qE '^/dev/zram[0-9]+[[:space:]]' /proc/swaps; then
+        echo "zram swap is already active!!!"
+  	else
+        sudo /usr/sbin/zramswap start
+  	fi
+}
+
+main
