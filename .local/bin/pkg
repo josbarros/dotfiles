@@ -1,0 +1,7 @@
+#!/bin/sh
+
+if [ "$PCKMNG" = "brew" ]; then
+	brew install "$@"
+else
+	sudo "$PCKMNG" install -y "$@"
+fi

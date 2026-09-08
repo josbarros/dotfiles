@@ -18,7 +18,7 @@ main () {
 
 install_zsh () {
 	echo "Installing ZSH!"
-	sudo "$PCKMNG" install -y zsh &&
+	pkg zsh &&
 	if [ "$SHELL" != "$(which zsh)" ]; then
 	  sudo chsh -s "$(which zsh)" "$USER"
 	else
@@ -34,14 +34,14 @@ install_zsh () {
 install_ranger () {
 	echo "Installing Ranger!"
 	# use the most recent master version since the latest oficial release has too many bugs
-	sudo "$PCKMNG" install -y pipx trash-cli && # for ranger trash
+	pkg pipx trash-cli && # for ranger trash
 	pipx install git+https://github.com/ranger/ranger.git > /dev/null &&
 	pipx inject ranger-fm pillow > /dev/null
 }
 
 install_vim () {
 	echo "Installing VIM!"	
-	sudo "$PCKMNG" install -y vim &&
+	pkg vim &&
 	# Configure Vim
 	mkdir -p "$XDG_CACHE_HOME/vim/swap" "$XDG_CACHE_HOME/vim/backup" &&
 	curl -fLo "$XDG_CONFIG_HOME/vim/autoload/plug.vim" --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -50,7 +50,7 @@ install_vim () {
 
 install_misc () {
 	echo "Installing misc crap!"	
-	sudo "$PCKMNG" install -y latexmk fastfetch highlight curl htop git adb
+	pkg latexmk fastfetch highlight curl htop git adb rsync make texlive-latex-extra
 }
 
 install_mise () {
@@ -63,7 +63,7 @@ install_mise () {
 	    echo "deb [signed-by=/etc/apt/keyrings/mise-archive-keyring.asc] https://mise.jdx.dev/deb stable main" | sudo tee /etc/apt/sources.list.d/mise.list > /dev/null &&
 		sudo apt-get update
 	fi &&
-	sudo "$PCKMNG" install -y mise &> /dev/null && 
+	pkg mise &> /dev/null &&
 	mise use --global node@lts > /dev/null && 
 	mise use --global java@21 > /dev/null &&
 	mise use --global gradle > /dev/null &&
@@ -81,7 +81,7 @@ install_ghostty () {
 	    echo "deb [signed-by=/usr/share/keyrings/deb.griffo.io.gpg] https://deb.griffo.io/apt trixie main" | sudo tee /etc/apt/sources.list.d/deb.griffo.io.list > /dev/null &&
 		sudo apt-get update
 	fi &&
-	sudo "$PCKMNG" install -y ghostty kitty-terminfo
+	pkg ghostty kitty-terminfo
 }
 
 main
