@@ -14,7 +14,7 @@ export PATH="$PATH:$XDG_CONFIG_HOME/yarn/bin:$XDG_CONFIG_HOME/yarn/global/node_m
 # Set Homebrew variables
 # todo docs.brew.sh/installation
 if [ -d /usr/local/Homebrew ]; then
-    eval "$(/usr/local/homebrew/bin/brew shellenv)" 
+    eval "$(/usr/local/Homebrew/bin/brew shellenv)"
 fi
 
 # Use vim as default
