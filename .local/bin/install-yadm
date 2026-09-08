@@ -18,6 +18,8 @@ install_yadm () {
 	    sudo dnf install -y yadm
 	elif [ -d /etc/apt/ ]; then
 	    sudo apt-get update > /dev/null && sudo apt-get install -y yadm
+	elif [ -d /opt/homebrew ] || [ -d /usr/local/Homebrew ]; then
+	    brew install yadm
 	else
 	    echo "No supported package manager found" >&2
 	    return 1
