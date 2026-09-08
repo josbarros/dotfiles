@@ -13,7 +13,9 @@ export PATH="$PATH:$XDG_CONFIG_HOME/yarn/bin:$XDG_CONFIG_HOME/yarn/global/node_m
 
 # Set Homebrew variables
 # todo docs.brew.sh/installation
-# eval "$(/opt/homebrew/bin/brew shellenv)" 
+if [ -d /usr/local/Homebrew ]; then
+    eval "$(/usr/local/homebrew/bin/brew shellenv)" 
+fi
 
 # Use vim as default
 export EDITOR=vim
@@ -55,6 +57,7 @@ export W3M_DIR="$XDG_STATE_HOME/w3m"
 # Package manager
 if [ -d /etc/dnf/ ]; then export PCKMNG="dnf"
 elif [ -d /etc/apt/ ]; then export PCKMNG="apt-get"
+elif [ -d /usr/local/Homebrew ]; then export PCKMNG="brew"
 fi
 
 # Devuan flatpak hack
