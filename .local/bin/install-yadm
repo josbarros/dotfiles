@@ -2,8 +2,11 @@
 
 main () {
 	SSH_DIR="$HOME/.ssh" &&
-   	SSH_KEY="$SSH_DIR/id_ed25519_sk_rk" &&
+	SSH_KEY="$SSH_DIR/id_ed25519_sk_rk" &&
+	SSH_KEYGEN=ssh-keygen &&
+	SSH=ssh &&
 	install_yadm &&
+	install_ssh &&
 	config_ssh &&
 	config_repo &&
 	gnupg_cleanup || { echo "Something failed!" >&2; return 1;}
@@ -26,6 +29,16 @@ install_yadm () {
 	fi
 }
 
+install_ssh () {
+    echo "Installing SSH!"
+	if [ "$(uname -s)" = Darwin ]; then
+		brew install openssh &&
+		OPENSSH_BIN="$(brew --prefix openssh)/bin" &&
+		SSH_KEYGEN="$OPENSSH_BIN/ssh-keygen" &&
+		SSH="$OPENSSH_BIN/ssh"
+	fi
+}
+
 config_ssh () {
 	echo "Configuring ssh!"	
 	# Add ssh keys
@@ -37,7 +50,7 @@ config_ssh () {
 	        break
 	    fi
 	    echo "Waiting for the user to get an SSH key from an external hardware key"
-	    ssh-keygen -K
+	    "$SSH_KEYGEN" -K
 	done
 	cd - > /dev/null
 }
@@ -46,7 +59,7 @@ config_repo () {
 	echo "Cloning yadm repo!"	
 	# Add ssh keys
 	# Clone the dotfiles repo
-	export GIT_SSH_COMMAND="ssh -o IdentityAgent=none -o IdentitiesOnly=yes -i \"$SSH_KEY\"" &&
+	export GIT_SSH_COMMAND="$SSH -o IdentityAgent=none -o IdentitiesOnly=yes -i \"$SSH_KEY\"" &&
 	if [ ! -d "$(yadm introspect repo)" ]; then
 		yadm clone git@github.com:josbarros/dotfiles.git 
 	fi &&
