@@ -25,6 +25,10 @@ Repo-local `AGENTS.md` files, repo docs, and existing build/test configs always 
 ## Change Control
 
 - Follow existing configurations and repo instructions before personal preference.
+- Keep changes aligned with architectural layers instead of reshaping things model by model unless the repo already does that.
+
+## Java Projects
+
 - For any code change, start with a failing test first unless the work is explicitly exempt.
 - Explicit exemptions are docs, config, tooling, exploratory reads, and other non-code edits.
 - If the work cannot be expressed with a meaningful failing test, stop and ask before bypassing TDD.
@@ -32,11 +36,6 @@ Repo-local `AGENTS.md` files, repo docs, and existing build/test configs always 
 - When adding tests via TDD, create at most one new test file at a time, and finish its full red-green-refactor cycle before starting the next one.
 - Follow the red-green-refactor cycle: write or update the test, confirm it fails, implement the minimum change, then refactor.
 - For layered work, start from lower layers first so implementation can grow upward cleanly.
-- Keep changes aligned with architectural layers instead of reshaping things model by model unless the repo already does that.
-
-## Java Projects
-
-- Prefer the machine-installed Gradle on this workstation first when working in Java repos, unless the repo clearly requires `./gradlew` or another build flow.
 - Use the repo's own build and test instructions when they exist.
 - Prefer targeted tests before broad suites.
 - Service-layer code should not depend on DTOs.
