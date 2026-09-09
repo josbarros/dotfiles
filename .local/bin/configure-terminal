@@ -55,15 +55,7 @@ install_misc () {
 
 install_mise () {
 	echo "Installing Mise!"	
-	if [ "$PCKMNG" = "dnf" ]; then
-	    sudo dnf copr enable jdxcode/mise -y &> /dev/null
-	elif [ "$PCKMNG" = "apt-get" ]; then
-	    sudo install -dm 755 /etc/apt/keyrings &&
-	    curl -fSs https://mise.jdx.dev/gpg-key.pub | sudo tee /etc/apt/keyrings/mise-archive-keyring.asc > /dev/null &&
-	    echo "deb [signed-by=/etc/apt/keyrings/mise-archive-keyring.asc] https://mise.jdx.dev/deb stable main" | sudo tee /etc/apt/sources.list.d/mise.list > /dev/null &&
-		sudo apt-get update
-	fi &&
-	pkg mise &> /dev/null &&
+	curl -fsSL https://mise.run | sh &&
 	mise use --global node@lts > /dev/null && 
 	mise use --global java@21 > /dev/null &&
 	mise use --global gradle > /dev/null &&
