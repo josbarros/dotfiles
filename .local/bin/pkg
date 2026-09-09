@@ -1,7 +1,16 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ "$PCKMNG" = "brew" ]; then
-	brew install "$@"
+	for package do
+		if ! brew list --formula "$package" &> /dev/null &&
+			! brew list --cask "$package" &> /dev/null &&
+			command -v "$package" &> /dev/null; then
+			printf 'Skipping %s: already available at %s\n' \
+				"$package" "$(command -v "$package")"
+		else
+			brew install "$package" || exit
+		fi
+	done
 else
 	sudo "$PCKMNG" install -y "$@"
 fi
