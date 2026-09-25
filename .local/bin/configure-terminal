@@ -50,7 +50,7 @@ install_vim () {
 
 install_misc () {
 	echo "Installing misc crap!"	
-	pkg latexmk fastfetch highlight curl htop git adb rsync make texlive-latex-extra
+	pkg latexmk fastfetch highlight curl htop git adb rsync make
 }
 
 install_mise () {
