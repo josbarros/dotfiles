@@ -38,32 +38,25 @@ configure_user_dirs () {
 
 install_misc () {
 	echo "Installing misc crap!"
-	sudo "$PCKMNG" install -y powertop gnome-tweaks gnome-extensions-app guvcview &&
+	sudo "$PCKMNG" install -y powertop nvtop gnome-tweaks gnome-extensions-app guvcview
 	# TODO Ver maneira de ja esta calibrado ou nao, ou se isso e' sequer preciso
 	# sudo powertop -c # calibrate
-	# Install on the old thinkpad to confirm video HW accelation on FF
-	if [ "$PCKMNG" = "apt-get" ]; then
-	    sudo apt-get install -y intel-gpu-tools
-	fi
 }
 
 install_tlp () {
 	echo "Installing tlp!"
 	# Install tlp
-	sudo "$PCKMNG" install -y tlp tlp-rdw &&
 	if [ "$PCKMNG" = "dnf" ]; then
-		# not available right now on debian
-	    sudo dnf install -y tlp-pd
-	fi &&
-	sudo "$PCKMNG" remove -y tuned tuned-ppd &&
-	if ps -p 1 | grep -q "systemd"; then
+	    sudo dnf install --allowerasing -y tlp tlp-rdw tlp-pd &&
 	    sudo systemctl enable tlp.service tlp-pd.service &&
 	    sudo systemctl mask systemd-rfkill.service systemd-rfkill.socket > /dev/null
+	elif [ "$PCKMNG" = "apt" ]; then
+	    sudo apt install -y tlp tlp-rdw
 	fi
 }
 
 install_gnome_exts () {
-	exts=("accent-directories@taiwbi.com" "appindicatorsupport@rgcjonas.gmail.com" "auto-accent-colour@Wartybix" "caffeine@patapon.info" "drive-menu@gnome-shell-extensions.gcampax.github.com" "marcs14@gmail.com" "clipboard-indicator@tudmotu.com" "power-switching-manager@joseruibarros.com" "executor@raujonas.github.io")
+	exts=("appindicatorsupport@rgcjonas.gmail.com" "caffeine@patapon.info" "drive-menu@gnome-shell-extensions.gcampax.github.com" "marcs14@gmail.com" "clipboard-indicator@tudmotu.com" "power-switching-manager@joseruibarros.com" "executor@raujonas.github.io")
 	echo "Installing gnome extensions!"
 	sudo "$PCKMNG" install -y pipx &&
 	# Install gnome extensions - marcs14 is the power manager
