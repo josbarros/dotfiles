@@ -41,3 +41,19 @@ Repo-local `AGENTS.md` files, repo docs, and existing build/test configs always 
 - Service-layer code should not depend on DTOs.
 - Avoid adding extra infrastructure unless the repo already uses it or the change clearly needs it.
 - Follow the repo's package, naming, and formatting conventions rather than introducing new style rules.
+
+## File editing rules
+
+- Always use native apply_patch for normal source edits.
+- Never use Python or shell commands for manual file edits.
+- Prefer small, reviewable patches.
+- Do not silently fall back to scripted edits.
+- Use scripts only for generated files or bulk transformations.
+
+## Git policy
+
+- NEVER create, amend, or otherwise write Git commits.
+- NEVER run git commit, directly or through scripts.
+- Leave all changes uncommitted for user review.
+- The user is exclusively responsible for committing.
+- Reading Git status, history, and diffs is allowed.
